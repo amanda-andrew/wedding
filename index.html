@@ -25,21 +25,82 @@
             scroll-behavior: smooth;
         }
 
-        /* LOGIN SCREEN */
-        .login-container {
+        /* BACKGROUND SLIDESHOW */
+        .slideshow {
             position: fixed;
             inset: 0;
-            z-index: 9999;
-            background: #000;
+            z-index: -3;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fade 12s infinite;
+            transform: scale(1.05);
+        }
+
+        .slide:nth-child(1) {
+            background-image: url("images/hero2.png");
+            animation-delay: 0s;
+        }
+
+        .slide:nth-child(2) {
+            background-image: url("images/hero3.png");
+            animation-delay: 6s;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+                transform: scale(1.08);
+            }
+            8% {
+                opacity: 1;
+            }
+            30% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            38% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
+            z-index: -2;
+        }
+
+        /* LANDING PAGE - FULL SCREEN */
+        .landing-page {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .landing-page.hidden {
+            display: none;
+        }
+
+        /* LOGIN SCREEN */
+        .login-container {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 20px;
-        }
-
-        .login-container.hidden {
-            display: none;
         }
 
         .login-content {
@@ -51,6 +112,7 @@
             padding: 60px 40px;
             max-width: 400px;
             width: 90%;
+            animation: fadeInUp 1s ease-out;
         }
 
         .login-content h2 {
@@ -115,60 +177,6 @@
             display: none;
         }
 
-        /* BACKGROUND SLIDESHOW */
-        .slideshow {
-            position: fixed;
-            inset: 0;
-            z-index: -3;
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            animation: fade 12s infinite;
-            transform: scale(1.05);
-        }
-
-        .slide:nth-child(1) {
-            background-image: url("images/hero2.png");
-            animation-delay: 0s;
-        }
-
-        .slide:nth-child(2) {
-            background-image: url("images/hero3.png");
-            animation-delay: 6s;
-        }
-
-        @keyframes fade {
-            0% {
-                opacity: 0;
-                transform: scale(1.08);
-            }
-            8% {
-                opacity: 1;
-            }
-            30% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            38% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
-            z-index: -2;
-        }
-
         /* NAVIGATION */
         nav {
             position: fixed;
@@ -197,6 +205,17 @@
 
         nav a:hover {
             opacity: .6;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content.visible {
+            display: block;
         }
 
         /* HERO SECTION */
@@ -484,19 +503,6 @@
     </style>
 </head>
 <body>
-    <!-- LOGIN SCREEN -->
-    <div class="login-container" id="loginContainer">
-        <div class="login-content">
-            <h2>Amanda & Andrew</h2>
-            <p>Enter the password to view our wedding</p>
-            <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
-            <form class="login-form" onsubmit="handleLogin(event)">
-                <input type="password" id="passwordInput" placeholder="Enter password" required>
-                <button type="submit" class="login-btn">Enter</button>
-            </form>
-        </div>
-    </div>
-
     <!-- BACKGROUND SLIDESHOW -->
     <div class="slideshow">
         <div class="slide"></div>
@@ -505,107 +511,125 @@
 
     <div class="overlay"></div>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <a onclick="scrollToSection('story')">Story</a>
-        <a onclick="scrollToSection('details')">Details</a>
-        <a onclick="scrollToSection('gallery')">Gallery</a>
-        <a onclick="scrollToSection('rsvp')">RSVP</a>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="content">
-            <div class="kicker">We're getting married</div>
-            <h1>Amanda<br>& Andrew</h1>
-            <div class="date">More details to come...</div>
-            <button class="cta-button" onclick="scrollToSection('rsvp')">RSVP</button>
-        </div>
-        <div class="scroll">SCROLL ↓</div>
-    </section>
-
-    <!-- STORY SECTION -->
-    <section id="story" class="section-dark">
-        <div class="section-title">Our Story</div>
-        <div class="story-content">
-            <p>Share the beautiful beginning of your love story with your guests. Tell them where and when you met, and what made that moment special.</p>
-            <p>Describe the memorable moments that have brought you closer together. From adventures to quiet moments, celebrate the path that led to this day.</p>
-            <p>Share what this moment means to you both and why you're excited to celebrate with your loved ones.</p>
-        </div>
-    </section>
-
-    <!-- DETAILS SECTION -->
-    <section id="details" class="section-dark">
-        <div class="section-title">Details</div>
-        <div class="details-grid">
-            <div class="detail-card">
-                <h3>Ceremony</h3>
-                <p>More details coming soon</p>
-            </div>
-            <div class="detail-card">
-                <h3>Reception</h3>
-                <p>More details coming soon</p>
-            </div>
-            <div class="detail-card">
-                <h3>Dinner</h3>
-                <p>More details coming soon</p>
-            </div>
-            <div class="detail-card">
-                <h3>Dress Code</h3>
-                <p>More details coming soon</p>
+    <!-- LANDING PAGE WITH LOGIN -->
+    <div class="landing-page" id="landingPage">
+        <div class="login-container">
+            <div class="login-content">
+                <h2>Amanda & Andrew</h2>
+                <p>Enter the password to view our wedding</p>
+                <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+                <form class="login-form" onsubmit="handleLogin(event)">
+                    <input type="password" id="passwordInput" placeholder="Enter password" required>
+                    <button type="submit" class="login-btn">Enter</button>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- GALLERY SECTION -->
-    <section id="gallery" class="section-dark">
-        <div class="section-title">Moments</div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="images/hero2.png" alt="Amanda & Andrew moment 1">
+    <!-- MAIN WEBSITE CONTENT -->
+    <div class="main-content" id="mainContent">
+        <!-- NAVIGATION -->
+        <nav>
+            <a onclick="scrollToSection('story')">Story</a>
+            <a onclick="scrollToSection('details')">Details</a>
+            <a onclick="scrollToSection('gallery')">Gallery</a>
+            <a onclick="scrollToSection('rsvp')">RSVP</a>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="content">
+                <div class="kicker">We're getting married</div>
+                <h1>Amanda<br>& Andrew</h1>
+                <div class="date">More details to come...</div>
+                <button class="cta-button" onclick="scrollToSection('rsvp')">RSVP</button>
             </div>
-            <div class="gallery-item">
-                <img src="images/hero3.png" alt="Amanda & Andrew moment 2">
+            <div class="scroll">SCROLL ↓</div>
+        </section>
+
+        <!-- STORY SECTION -->
+        <section id="story" class="section-dark">
+            <div class="section-title">Our Story</div>
+            <div class="story-content">
+                <p>Share the beautiful beginning of your love story with your guests. Tell them where and when you met, and what made that moment special.</p>
+                <p>Describe the memorable moments that have brought you closer together. From adventures to quiet moments, celebrate the path that led to this day.</p>
+                <p>Share what this moment means to you both and why you're excited to celebrate with your loved ones.</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- RSVP SECTION -->
-    <section id="rsvp" class="section-dark">
-        <div class="rsvp-container">
-            <h2>RSVP</h2>
-            <p class="rsvp-subtitle">We'd love to have you celebrate with us</p>
-            <form>
-                <div class="form-group">
-                    <input type="text" placeholder="Your Name" required>
+        <!-- DETAILS SECTION -->
+        <section id="details" class="section-dark">
+            <div class="section-title">Details</div>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h3>Ceremony</h3>
+                    <p>More details coming soon</p>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Your Email" required>
+                <div class="detail-card">
+                    <h3>Reception</h3>
+                    <p>More details coming soon</p>
                 </div>
-                <div class="form-group">
-                    <select required>
-                        <option value="">Will you be attending?</option>
-                        <option value="yes">Yes, I'll be there!</option>
-                        <option value="no">No, I can't make it</option>
-                        <option value="maybe">Maybe, let me get back to you</option>
-                    </select>
+                <div class="detail-card">
+                    <h3>Dinner</h3>
+                    <p>More details coming soon</p>
                 </div>
-                <div class="form-group">
-                    <input type="number" placeholder="Number of Guests" min="1" max="10" required>
+                <div class="detail-card">
+                    <h3>Dress Code</h3>
+                    <p>More details coming soon</p>
                 </div>
-                <div class="form-group">
-                    <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
-                </div>
-                <button type="submit" class="cta-button" style="width: 100%;">Submit RSVP</button>
-            </form>
-        </div>
-    </section>
+            </div>
+        </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
-        <p>💕 With love and excitement</p>
-    </footer>
+        <!-- GALLERY SECTION -->
+        <section id="gallery" class="section-dark">
+            <div class="section-title">Moments</div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="images/hero2.png" alt="Amanda & Andrew moment 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/hero3.png" alt="Amanda & Andrew moment 2">
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP SECTION -->
+        <section id="rsvp" class="section-dark">
+            <div class="rsvp-container">
+                <h2>RSVP</h2>
+                <p class="rsvp-subtitle">We'd love to have you celebrate with us</p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Will you be attending?</option>
+                            <option value="yes">Yes, I'll be there!</option>
+                            <option value="no">No, I can't make it</option>
+                            <option value="maybe">Maybe, let me get back to you</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Number of Guests" min="1" max="10" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Submit RSVP</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
+            <p>💕 With love and excitement</p>
+        </footer>
+    </div>
 
     <script>
         // Password verification
@@ -619,7 +643,8 @@
 
             if (enteredPassword === CORRECT_PASSWORD) {
                 sessionStorage.setItem('weddingAuthenticated', 'true');
-                document.getElementById('loginContainer').classList.add('hidden');
+                document.getElementById('landingPage').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('visible');
                 errorMessage.style.display = 'none';
             } else {
                 errorMessage.style.display = 'block';
@@ -638,9 +663,11 @@
         // Check if user is already authenticated on page load
         window.addEventListener('load', function() {
             if (sessionStorage.getItem('weddingAuthenticated') === 'true') {
-                document.getElementById('loginContainer').classList.add('hidden');
+                document.getElementById('landingPage').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('visible');
             } else {
-                document.getElementById('loginContainer').classList.remove('hidden');
+                document.getElementById('landingPage').classList.remove('hidden');
+                document.getElementById('mainContent').classList.remove('visible');
                 document.getElementById('passwordInput').focus();
             }
         });
