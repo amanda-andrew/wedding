@@ -18,10 +18,101 @@
             background: #000;
             color: white;
             font-family: Inter, sans-serif;
+            overflow-x: hidden;
         }
 
         html {
             scroll-behavior: smooth;
+        }
+
+        /* LOGIN SCREEN */
+        .login-container {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .login-container.hidden {
+            display: none;
+        }
+
+        .login-content {
+            text-align: center;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 8px;
+            padding: 60px 40px;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-content h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .login-content p {
+            color: rgba(255, 255, 255, .75);
+            margin-bottom: 30px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-form input {
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 6px;
+            color: white;
+            font-family: Inter, sans-serif;
+            font-size: 1rem;
+            transition: .3s;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, .12);
+            border-color: rgba(255, 255, 255, .3);
+        }
+
+        .login-form input::placeholder {
+            color: rgba(255, 255, 255, .5);
+        }
+
+        .login-btn {
+            padding: 14px 16px;
+            background: white;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: .3s;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, .1);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            display: none;
         }
 
         /* BACKGROUND SLIDESHOW */
@@ -106,6 +197,7 @@
             color: white;
             text-decoration: none;
             transition: .3s;
+            cursor: pointer;
         }
 
         nav a:hover {
@@ -146,6 +238,7 @@
             margin-top: 25px;
             font-size: 1.1rem;
             letter-spacing: 4px;
+            color: rgba(255, 255, 255, .8);
         }
 
         .cta-button {
@@ -388,10 +481,27 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
+
+            .login-content {
+                padding: 40px 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- LOGIN SCREEN -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-content">
+            <h2>Amanda & Andrew</h2>
+            <p>Enter the password to view our wedding</p>
+            <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <input type="password" id="passwordInput" placeholder="Enter password" required>
+                <button type="submit" class="login-btn">Enter</button>
+            </form>
+        </div>
+    </div>
+
     <!-- BACKGROUND SLIDESHOW -->
     <div class="slideshow">
         <div class="slide"></div>
@@ -403,10 +513,10 @@
 
     <!-- NAVIGATION -->
     <nav>
-        <a href="#story">Story</a>
-        <a href="#details">Details</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#rsvp">RSVP</a>
+        <a onclick="scrollToSection('story')">Story</a>
+        <a onclick="scrollToSection('details')">Details</a>
+        <a onclick="scrollToSection('gallery')">Gallery</a>
+        <a onclick="scrollToSection('rsvp')">RSVP</a>
     </nav>
 
     <!-- HERO SECTION -->
@@ -414,8 +524,8 @@
         <div class="content">
             <div class="kicker">We're getting married</div>
             <h1>Amanda<br>& Andrew</h1>
-            <div class="date">JUNE 24, 2023 • LAKE GARDA, ITALY</div>
-            <button class="cta-button" onclick="document.getElementById('rsvp').scrollIntoView()">RSVP</button>
+            <div class="date">More details to come...</div>
+            <button class="cta-button" onclick="scrollToSection('rsvp')">RSVP</button>
         </div>
         <div class="scroll">SCROLL ↓</div>
     </section>
@@ -436,19 +546,19 @@
         <div class="details-grid">
             <div class="detail-card">
                 <h3>Ceremony</h3>
-                <p>June 24, 2023<br>3:00 PM<br><br>[Venue Name]<br>Lake Garda, Italy</p>
+                <p>More details coming soon</p>
             </div>
             <div class="detail-card">
                 <h3>Reception</h3>
-                <p>June 24, 2023<br>5:00 PM<br><br>[Venue Name]<br>Lake Garda, Italy</p>
+                <p>More details coming soon</p>
             </div>
             <div class="detail-card">
                 <h3>Dinner</h3>
-                <p>June 24, 2023<br>7:00 PM<br><br>Italian Cuisine<br>Dietary Options Available</p>
+                <p>More details coming soon</p>
             </div>
             <div class="detail-card">
                 <h3>Dress Code</h3>
-                <p>Black Tie Optional<br><br>Please wear formal attire. We will provide details about colors soon.</p>
+                <p>More details coming soon</p>
             </div>
         </div>
     </section>
@@ -505,5 +615,52 @@
         <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
         <p>💕 With love and excitement</p>
     </footer>
+
+    <script>
+        // Password verification
+        const CORRECT_PASSWORD = "Hannon";
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const passwordInput = document.getElementById('passwordInput');
+            const enteredPassword = passwordInput.value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (enteredPassword === CORRECT_PASSWORD) {
+                sessionStorage.setItem('weddingAuthenticated', 'true');
+                document.getElementById('loginContainer').classList.add('hidden');
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Check if user is already authenticated on page load
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('weddingAuthenticated') === 'true') {
+                document.getElementById('loginContainer').classList.add('hidden');
+            } else {
+                document.getElementById('loginContainer').classList.remove('hidden');
+                document.getElementById('passwordInput').focus();
+            }
+        });
+
+        // Focus on password input when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('passwordInput');
+            if (passwordInput && sessionStorage.getItem('weddingAuthenticated') !== 'true') {
+                passwordInput.focus();
+            }
+        });
+    </script>
 </body>
 </html>
