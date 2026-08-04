@@ -4,145 +4,511 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amanda & Andrew | Wedding</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #d4a5a5;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #d4a5a5;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #d4a5a5;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -2;
+        }
+
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: -1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 3rem;
+            background: white;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .about p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Details Section */
+        .details {
+            padding: 5rem 3rem;
+            background: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .details-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .detail-card {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .detail-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #d4a5a5;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 3rem;
+            background: white;
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* RSVP Section */
+        .rsvp {
+            padding: 5rem 3rem;
+            background: linear-gradient(135deg, #d4a5a5 0%, #c17a7a 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .rsvp h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .rsvp-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .rsvp-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+        }
+
+        .submit-button {
+            padding: 1rem;
+            background-color: white;
+            color: #d4a5a5;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .submit-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c2c2c;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                margin-top: 150px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .details-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-card,
+            .gallery-item {
+                aspect-ratio: auto;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
-            <div class="logo">Amanda & Andrew</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#details">Details</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#rsvp">RSVP</a></li>
-            </ul>
-        </div>
+        <div class="logo">A & A</div>
+        <ul class="nav-links">
+            <li><a href="#home">We're getting married!</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#accommodations">Accommodations</a></li>
+            <li><a href="#details">Event details</a></li>
+            <li><a href="#dress">Dress code</a></li>
+            <li><a href="#registry">Registry</a></li>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#gallery">Photos</a></li>
+        </ul>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Photo Background -->
     <section id="home" class="hero">
+        <div class="hero-background">
+            <img src="images/photo1.jpg" alt="Amanda & Andrew">
+        </div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Amanda & Andrew</h1>
-            <p class="tagline">Together Forever Starts Here</p>
-            <div class="date-display">
-                <p id="date-placeholder">Save the Date</p>
-            </div>
-            <a href="#rsvp" class="cta-button">Join Our Celebration</a>
+            <p>June 24, 2023 · Lake Garda, Italy</p>
         </div>
-        <div class="hero-background"></div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2>Our Story</h2>
-            <div class="story-grid">
-                <div class="story-card">
-                    <h3>How We Met</h3>
-                    <p>Share the beautiful beginning of your love story with your guests. Tell them where and when you met, and what made that moment special.</p>
-                </div>
-                <div class="story-card">
-                    <h3>Our Journey</h3>
-                    <p>Describe the memorable moments that have brought you closer together. From adventures to quiet moments, celebrate the path that led to this day.</p>
-                </div>
-                <div class="story-card">
-                    <h3>Why Today</h3>
-                    <p>Share what this moment means to you both and why you're excited to celebrate with your loved ones. Let your joy shine through!</p>
-                </div>
+    <!-- Location Section -->
+    <section id="location" class="details">
+        <div class="section-title">Location</div>
+        <div class="details-grid">
+            <div class="detail-card">
+                <h3>Ceremony</h3>
+                <p>[Venue Name]<br>Lake Garda, Italy</p>
+            </div>
+            <div class="detail-card">
+                <h3>Reception</h3>
+                <p>[Venue Name]<br>Lake Garda, Italy</p>
             </div>
         </div>
+    </section>
+
+    <!-- Accommodations Section -->
+    <section id="accommodations" class="about">
+        <h2>Accommodations</h2>
+        <p>We have arranged special rates at nearby hotels. Please visit our website or contact us for details on where to stay during your visit to Lake Garda.</p>
+    </section>
+
+    <!-- Event Details Section -->
+    <section id="details" class="details">
+        <div class="section-title">Event Details</div>
+        <div class="details-grid">
+            <div class="detail-card">
+                <h3>Ceremony</h3>
+                <p>June 24, 2023<br>3:00 PM</p>
+            </div>
+            <div class="detail-card">
+                <h3>Reception</h3>
+                <p>June 24, 2023<br>5:00 PM</p>
+            </div>
+            <div class="detail-card">
+                <h3>Dinner</h3>
+                <p>June 24, 2023<br>7:00 PM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dress Code Section -->
+    <section id="dress" class="about">
+        <h2>Dress Code</h2>
+        <p>Black Tie Optional. Please wear formal attire. We will provide details about colors and specifics soon.</p>
+    </section>
+
+    <!-- Registry Section (placeholder) -->
+    <section id="registry" class="details">
+        <div class="section-title">Registry</div>
+        <div class="details-grid">
+            <div class="detail-card">
+                <h3>Registry Coming Soon</h3>
+                <p>Details about gift registries will be available soon.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section (placeholder) -->
+    <section id="videos" class="about">
+        <h2>Videos</h2>
+        <p>Special video content will be shared here soon!</p>
     </section>
 
     <!-- Gallery Section -->
     <section id="gallery" class="gallery">
-        <div class="container">
-            <h2>Our Moments</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/photo1.jpg" alt="Amanda and Andrew together">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/photo2.jpg" alt="Amanda and Andrew embrace">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/photo3.jpg" alt="Amanda and Andrew kiss">
-                </div>
+        <div class="section-title">Photos</div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/photo1.jpg" alt="Amanda & Andrew moment 1">
             </div>
-        </div>
-    </section>
-
-    <!-- Wedding Details Section -->
-    <section id="details" class="details">
-        <div class="container">
-            <h2>Wedding Details</h2>
-            <div class="details-grid">
-                <div class="detail-card">
-                    <div class="icon">📅</div>
-                    <h3>Date & Time</h3>
-                    <p><strong>Date:</strong> [Add Date]</p>
-                    <p><strong>Time:</strong> [Add Time]</p>
-                </div>
-                <div class="detail-card">
-                    <div class="icon">📍</div>
-                    <h3>Venue</h3>
-                    <p><strong>Ceremony:</strong> [Add Venue Name]</p>
-                    <p><strong>Address:</strong> [Add Address]</p>
-                </div>
-                <div class="detail-card">
-                    <div class="icon">🎉</div>
-                    <h3>Reception</h3>
-                    <p><strong>Time:</strong> [Add Time]</p>
-                    <p><strong>Location:</strong> [Add Location]</p>
-                </div>
-                <div class="detail-card">
-                    <div class="icon">🍽️</div>
-                    <h3>Dinner</h3>
-                    <p><strong>Menu:</strong> [Add Menu Details]</p>
-                    <p><strong>Dietary Options:</strong> Available</p>
-                </div>
+            <div class="gallery-item">
+                <img src="images/photo2.jpg" alt="Amanda & Andrew moment 2">
+            </div>
+            <div class="gallery-item">
+                <img src="images/photo3.jpg" alt="Amanda & Andrew moment 3">
             </div>
         </div>
     </section>
 
     <!-- RSVP Section -->
     <section id="rsvp" class="rsvp">
-        <div class="container">
-            <h2>We'd Love to Have You!</h2>
-            <p class="rsvp-subtitle">Please join us for our special day</p>
-            <form class="rsvp-form">
-                <div class="form-group">
-                    <input type="text" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <select required>
-                        <option value="">Will you be attending?</option>
-                        <option value="yes">Yes, I'll be there!</option>
-                        <option value="no">No, I can't make it</option>
-                        <option value="maybe">Maybe, let me get back to you</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="number" placeholder="Number of Guests" min="1" max="10" required>
-                </div>
-                <div class="form-group">
-                    <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
-                </div>
-                <button type="submit" class="submit-button">Submit RSVP</button>
-            </form>
-        </div>
+        <h2>RSVP</h2>
+        <p class="rsvp-subtitle">We'd love to have you celebrate with us!</p>
+        <form class="rsvp-form">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <select required>
+                    <option value="">Will you be attending?</option>
+                    <option value="yes">Yes, I'll be there!</option>
+                    <option value="no">No, I can't make it</option>
+                    <option value="maybe">Maybe, let me get back to you</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Number of Guests" min="1" max="10" required>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Submit RSVP</button>
+        </form>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
-            <p>💕 With love and excitement</p>
-        </div>
+        <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
+        <p>💕 With love and excitement</p>
     </footer>
 
     <script src="script.js"></script>
