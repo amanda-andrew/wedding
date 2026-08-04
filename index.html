@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Amanda & Andrew | Wedding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,309 +15,344 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6;
-            color: #333;
+            background: #000;
+            color: white;
+            font-family: Inter, sans-serif;
         }
 
         html {
             scroll-behavior: smooth;
         }
 
-        /* Navigation */
-        .navbar {
+        /* BACKGROUND SLIDESHOW */
+        .slideshow {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            inset: 0;
+            z-index: -3;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: fade 18s infinite;
+            transform: scale(1.05);
+        }
+
+        .slide:nth-child(1) {
+            background-image: url("images/photo1.jpg");
+            animation-delay: 0s;
+        }
+
+        .slide:nth-child(2) {
+            background-image: url("images/photo2.jpg");
+            animation-delay: 6s;
+        }
+
+        .slide:nth-child(3) {
+            background-image: url("images/photo3.jpg");
+            animation-delay: 12s;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+                transform: scale(1.08);
+            }
+            8% {
+                opacity: 1;
+            }
+            30% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            38% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
+            z-index: -2;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 3rem;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+            gap: 48px;
             letter-spacing: 2px;
-            color: #d4a5a5;
+            font-size: .8rem;
+            text-transform: uppercase;
+            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, .08);
+            padding: 14px 28px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, .15);
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
+        nav a {
+            color: white;
             text-decoration: none;
-            color: #333;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
-            position: relative;
+            transition: .3s;
         }
 
-        .nav-links a:hover {
-            color: #d4a5a5;
+        nav a:hover {
+            opacity: .6;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: #d4a5a5;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
+        /* HERO SECTION */
         .hero {
-            position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
-            overflow: hidden;
-            margin-top: 70px;
+            padding: 40px;
+            position: relative;
         }
 
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -2;
-        }
-
-        .hero-background img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.35);
-            z-index: -1;
-        }
-
-        .hero-content {
-            z-index: 2;
+        .content {
+            max-width: 900px;
             animation: fadeInUp 1s ease-out;
         }
 
-        .hero h1 {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            letter-spacing: 3px;
+        .kicker {
+            letter-spacing: 6px;
             text-transform: uppercase;
+            margin-bottom: 24px;
+            font-size: .8rem;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+        h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(70px, 12vw, 170px);
             font-weight: 300;
+            line-height: .9;
         }
 
-        /* About Section */
-        .about {
-            padding: 5rem 3rem;
-            background: white;
-            text-align: center;
-        }
-
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        .about p {
-            max-width: 600px;
-            margin: 0 auto;
+        .date {
+            margin-top: 25px;
             font-size: 1.1rem;
-            color: #666;
-            line-height: 1.8;
+            letter-spacing: 4px;
         }
 
-        /* Details Section */
-        .details {
-            padding: 5rem 3rem;
-            background: #f9f9f9;
+        .cta-button {
+            margin-top: 55px;
+            border: none;
+            padding: 18px 38px;
+            border-radius: 999px;
+            background: white;
+            color: #111;
+            font-size: .9rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: .35s;
+            font-weight: 500;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .3);
+        }
+
+        .scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: .8rem;
+            letter-spacing: 4px;
+            opacity: .8;
+        }
+
+        /* SECTIONS */
+        section {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-dark {
+            background: rgba(0, 0, 0, .95);
         }
 
         .section-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(40px, 8vw, 100px);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            letter-spacing: 1px;
-            font-weight: 700;
+            text-transform: uppercase;
         }
 
+        /* STORY SECTION */
+        .story-content {
+            max-width: 700px;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .story-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, .85);
+        }
+
+        /* DETAILS GRID */
         .details-grid {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 40px;
+            max-width: 1000px;
+            width: 100%;
         }
 
         .detail-card {
-            background: white;
-            padding: 2rem;
             text-align: center;
+            padding: 40px 20px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            transition: .35s;
         }
 
         .detail-card:hover {
+            background: rgba(255, 255, 255, .1);
             transform: translateY(-5px);
         }
 
         .detail-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #d4a5a5;
-            letter-spacing: 0.5px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
         }
 
         .detail-card p {
-            color: #666;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, .75);
+            line-height: 1.6;
         }
 
-        /* Gallery Section */
-        .gallery {
-            padding: 5rem 3rem;
-            background: white;
-        }
-
+        /* GALLERY */
         .gallery-grid {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
         }
 
         .gallery-item {
             position: relative;
+            aspect-ratio: 1;
             overflow: hidden;
             border-radius: 8px;
-            aspect-ratio: 1;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform .35s;
         }
 
         .gallery-item:hover img {
             transform: scale(1.05);
         }
 
-        /* RSVP Section */
-        .rsvp {
-            padding: 5rem 3rem;
-            background: linear-gradient(135deg, #d4a5a5 0%, #c17a7a 100%);
-            color: white;
+        /* RSVP SECTION */
+        .rsvp-container {
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 8px;
+            padding: 60px 40px;
+        }
+
+        .rsvp-container h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
             text-align: center;
         }
 
-        .rsvp h2 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
         .rsvp-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            opacity: 0.95;
+            text-align: center;
+            color: rgba(255, 255, 255, .75);
+            margin-bottom: 30px;
         }
 
-        .rsvp-form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: grid;
-            gap: 1.5rem;
+        .form-group {
+            margin-bottom: 20px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 1rem;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+            border-radius: 6px;
+            color: white;
+            font-family: Inter, sans-serif;
             font-size: 1rem;
-            color: #333;
+            transition: .3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, .12);
+            border-color: rgba(255, 255, 255, .3);
         }
 
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: #999;
+            color: rgba(255, 255, 255, .5);
         }
 
-        .submit-button {
-            padding: 1rem;
-            background-color: white;
-            color: #d4a5a5;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        .submit-button:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        .footer {
-            background-color: #2c2c2c;
-            color: white;
+        /* FOOTER */
+        footer {
+            background: rgba(0, 0, 0, .98);
+            padding: 40px;
             text-align: center;
-            padding: 2rem 0;
+            color: rgba(255, 255, 255, .6);
+            position: relative;
+            z-index: 1;
         }
 
-        .footer p {
-            margin: 0.5rem 0;
+        footer p {
+            margin: 10px 0;
         }
 
-        /* Animations */
+        /* ANIMATIONS */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -326,143 +364,98 @@
             }
         }
 
-        /* Responsive Design */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.8rem;
-                flex-wrap: wrap;
-                justify-content: center;
+            nav {
+                gap: 18px;
+                font-size: .7rem;
+                padding: 12px 20px;
             }
 
             .hero {
-                margin-top: 150px;
+                padding: 20px;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            section {
+                padding: 60px 20px;
             }
 
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
+            .rsvp-container {
+                padding: 40px 20px;
             }
 
             .details-grid,
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
-
-            .detail-card,
-            .gallery-item {
-                aspect-ratio: auto;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">A & A</div>
-        <ul class="nav-links">
-            <li><a href="#home">We're getting married!</a></li>
-            <li><a href="#location">Location</a></li>
-            <li><a href="#accommodations">Accommodations</a></li>
-            <li><a href="#details">Event details</a></li>
-            <li><a href="#dress">Dress code</a></li>
-            <li><a href="#registry">Registry</a></li>
-            <li><a href="#videos">Videos</a></li>
-            <li><a href="#gallery">Photos</a></li>
-        </ul>
+    <!-- BACKGROUND SLIDESHOW -->
+    <div class="slideshow">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#story">Story</a>
+        <a href="#details">Details</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#rsvp">RSVP</a>
     </nav>
 
-    <!-- Hero Section with Photo Background -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <img src="images/photo1.jpg" alt="Amanda & Andrew">
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="content">
+            <div class="kicker">We're getting married</div>
+            <h1>Amanda<br>& Andrew</h1>
+            <div class="date">JUNE 24, 2023 • LAKE GARDA, ITALY</div>
+            <button class="cta-button" onclick="document.getElementById('rsvp').scrollIntoView()">RSVP</button>
         </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Amanda & Andrew</h1>
-            <p>June 24, 2023 · Lake Garda, Italy</p>
+        <div class="scroll">SCROLL ↓</div>
+    </section>
+
+    <!-- STORY SECTION -->
+    <section id="story" class="section-dark">
+        <div class="section-title">Our Story</div>
+        <div class="story-content">
+            <p>Share the beautiful beginning of your love story with your guests. Tell them where and when you met, and what made that moment special.</p>
+            <p>Describe the memorable moments that have brought you closer together. From adventures to quiet moments, celebrate the path that led to this day.</p>
+            <p>Share what this moment means to you both and why you're excited to celebrate with your loved ones.</p>
         </div>
     </section>
 
-    <!-- Location Section -->
-    <section id="location" class="details">
-        <div class="section-title">Location</div>
+    <!-- DETAILS SECTION -->
+    <section id="details" class="section-dark">
+        <div class="section-title">Details</div>
         <div class="details-grid">
             <div class="detail-card">
                 <h3>Ceremony</h3>
-                <p>[Venue Name]<br>Lake Garda, Italy</p>
+                <p>June 24, 2023<br>3:00 PM<br><br>[Venue Name]<br>Lake Garda, Italy</p>
             </div>
             <div class="detail-card">
                 <h3>Reception</h3>
-                <p>[Venue Name]<br>Lake Garda, Italy</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Accommodations Section -->
-    <section id="accommodations" class="about">
-        <h2>Accommodations</h2>
-        <p>We have arranged special rates at nearby hotels. Please visit our website or contact us for details on where to stay during your visit to Lake Garda.</p>
-    </section>
-
-    <!-- Event Details Section -->
-    <section id="details" class="details">
-        <div class="section-title">Event Details</div>
-        <div class="details-grid">
-            <div class="detail-card">
-                <h3>Ceremony</h3>
-                <p>June 24, 2023<br>3:00 PM</p>
-            </div>
-            <div class="detail-card">
-                <h3>Reception</h3>
-                <p>June 24, 2023<br>5:00 PM</p>
+                <p>June 24, 2023<br>5:00 PM<br><br>[Venue Name]<br>Lake Garda, Italy</p>
             </div>
             <div class="detail-card">
                 <h3>Dinner</h3>
-                <p>June 24, 2023<br>7:00 PM</p>
+                <p>June 24, 2023<br>7:00 PM<br><br>Italian Cuisine<br>Dietary Options Available</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Dress Code Section -->
-    <section id="dress" class="about">
-        <h2>Dress Code</h2>
-        <p>Black Tie Optional. Please wear formal attire. We will provide details about colors and specifics soon.</p>
-    </section>
-
-    <!-- Registry Section (placeholder) -->
-    <section id="registry" class="details">
-        <div class="section-title">Registry</div>
-        <div class="details-grid">
             <div class="detail-card">
-                <h3>Registry Coming Soon</h3>
-                <p>Details about gift registries will be available soon.</p>
+                <h3>Dress Code</h3>
+                <p>Black Tie Optional<br><br>Please wear formal attire. We will provide details about colors soon.</p>
             </div>
         </div>
     </section>
 
-    <!-- Videos Section (placeholder) -->
-    <section id="videos" class="about">
-        <h2>Videos</h2>
-        <p>Special video content will be shared here soon!</p>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="section-title">Photos</div>
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="section-dark">
+        <div class="section-title">Moments</div>
         <div class="gallery-grid">
             <div class="gallery-item">
                 <img src="images/photo1.jpg" alt="Amanda & Andrew moment 1">
@@ -476,41 +469,41 @@
         </div>
     </section>
 
-    <!-- RSVP Section -->
-    <section id="rsvp" class="rsvp">
-        <h2>RSVP</h2>
-        <p class="rsvp-subtitle">We'd love to have you celebrate with us!</p>
-        <form class="rsvp-form">
-            <div class="form-group">
-                <input type="text" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-                <select required>
-                    <option value="">Will you be attending?</option>
-                    <option value="yes">Yes, I'll be there!</option>
-                    <option value="no">No, I can't make it</option>
-                    <option value="maybe">Maybe, let me get back to you</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="number" placeholder="Number of Guests" min="1" max="10" required>
-            </div>
-            <div class="form-group">
-                <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
-            </div>
-            <button type="submit" class="submit-button">Submit RSVP</button>
-        </form>
+    <!-- RSVP SECTION -->
+    <section id="rsvp" class="section-dark">
+        <div class="rsvp-container">
+            <h2>RSVP</h2>
+            <p class="rsvp-subtitle">We'd love to have you celebrate with us</p>
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="">Will you be attending?</option>
+                        <option value="yes">Yes, I'll be there!</option>
+                        <option value="no">No, I can't make it</option>
+                        <option value="maybe">Maybe, let me get back to you</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Number of Guests" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">Submit RSVP</button>
+            </form>
+        </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- FOOTER -->
+    <footer>
         <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
         <p>💕 With love and excitement</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
