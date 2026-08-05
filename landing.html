@@ -1,231 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amanda & Andrew | Wedding</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amanda &amp; Andrew</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f0f0f;
+    --ivory:#F5F5F3;
+    --line:rgba(245,245,243,0.55);
+    --overlay-top: rgba(0,0,0,0.45);
+    --overlay-bottom: rgba(0,0,0,0.78);
+  }
 
-        body {
-            font-family: 'Georgia', serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #d4a5a5 0%, #c17a7a 100%);
-            min-height: 100vh;
-        }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ height:100%; }
 
-        .container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+  body{
+    font-family:'Jost', sans-serif;
+    background:var(--ink);
+    color:var(--ivory);
+  }
 
-        .login-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-        }
+  /* ---------- Full-bleed hero photo ---------- */
+  .hero{
+    position:relative;
+    height:100vh;
+    width:100%;
+    overflow:hidden;
+  }
+  .hero img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+    filter:grayscale(100%) contrast(1.08);
+  }
+  .hero::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(to bottom, var(--overlay-top) 0%, rgba(0,0,0,0.25) 40%, var(--overlay-bottom) 100%);
+  }
 
-        .login-section h1 {
-            font-size: 2.5rem;
-            color: #c17a7a;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
+  /* ---------- Monogram crest ---------- */
+  .crest{
+    width:64px;
+    height:64px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .crest::before{
+    content:'';
+    position:absolute;
+    inset:5px;
+    border:1px solid rgba(245,245,243,0.28);
+    border-radius:50%;
+  }
+  .crest span{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:20px;
+    letter-spacing:1px;
+    color:var(--ivory);
+  }
 
-        .login-section p {
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1rem;
-        }
+  /* ---------- Hero content ---------- */
+  .hero-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
 
-        .form-group {
-            width: 100%;
-            margin-bottom: 1.5rem;
-        }
+  .hero-content .crest{ margin-bottom:30px; }
 
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #d4a5a5;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: 'Georgia', serif;
-            transition: border-color 0.3s ease;
-        }
+  .hero-content h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:300;
+    font-size:clamp(2.3rem, 6vw, 4rem);
+    letter-spacing:0.06em;
+    line-height:1.15;
+  }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #c17a7a;
-        }
+  .hero-content .amp{
+    font-style:italic;
+    opacity:0.75;
+    padding:0 0.15em;
+  }
 
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #d4a5a5 0%, #c17a7a 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+  .hero-content .date{
+    margin-top:18px;
+    font-size:0.75rem;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:rgba(245,245,243,0.7);
+  }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(193, 122, 122, 0.4);
-        }
+  .hero-content .divider{
+    width:1px;
+    height:44px;
+    background:linear-gradient(to bottom, transparent, var(--line), transparent);
+    margin:28px 0;
+  }
 
-        .submit-btn:active {
-            transform: translateY(0);
-        }
+  .hero-content .tag{
+    font-size:0.68rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(245,245,243,0.55);
+  }
 
-        .error-message {
-            color: #d32f2f;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
+  /* ---------- Scroll cue ---------- */
+  .scroll-cue{
+    position:absolute;
+    bottom:28px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    opacity:0.6;
+  }
+  .scroll-cue span{
+    font-size:0.6rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+  }
+  .scroll-cue .line{
+    width:1px;
+    height:26px;
+    background:var(--ivory);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:0.2; transform:scaleY(0.6); }
+    50%{ opacity:1; transform:scaleY(1); }
+  }
 
-        .photo-section {
-            display: none;
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .photo-section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .logout-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 0.8rem 1.5rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #c17a7a;
-            border: 2px solid white;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Georgia', serif;
-        }
-
-        .logout-btn:hover {
-            background-color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .login-section {
-                padding: 2rem 1.5rem;
-            }
-
-            .login-section h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+  @media (max-width:480px){
+    .crest{ width:54px; height:54px; }
+    .crest span{ font-size:17px; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Login Section -->
-        <div class="login-section" id="loginSection">
-            <h1>Amanda & Andrew</h1>
-            <p>Enter the password to view our special moment</p>
-            <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
-            <form id="passwordForm" onsubmit="checkPassword(event)">
-                <div class="form-group">
-                    <input 
-                        type="password" 
-                        id="passwordInput" 
-                        placeholder="Enter password" 
-                        required
-                        autocomplete="off"
-                    >
-                </div>
-                <button type="submit" class="submit-btn">Enter</button>
-            </form>
-        </div>
 
-        <!-- Photo Section -->
-        <div class="photo-section" id="photoSection">
-            <img id="weddingPhoto" src="images/photo2.jpg" alt="Amanda & Andrew">
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
+  <section class="hero">
+    <img src="hero.jpg" alt="Amanda and Andrew">
+    <div class="hero-content">
+      <div class="crest"><span>A&amp;A</span></div>
+      <h1>Amanda <span class="amp">&amp;</span> Andrew</h1>
+      <div class="date">Save the Date &mdash; 2027</div>
+      <div class="divider"></div>
+      <div class="tag">More details coming soon</div>
     </div>
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
+  </section>
 
-    <script>
-        // Set your desired password here
-        const CORRECT_PASSWORD = "Hannon";
-
-        function checkPassword(event) {
-            event.preventDefault();
-            
-            const passwordInput = document.getElementById('passwordInput');
-            const enteredPassword = passwordInput.value;
-            const errorMessage = document.getElementById('errorMessage');
-            
-            if (enteredPassword === CORRECT_PASSWORD) {
-                // Password is correct
-                errorMessage.style.display = 'none';
-                sessionStorage.setItem('weddingAuthenticated', 'true');
-                showPhoto();
-            } else {
-                // Password is incorrect
-                errorMessage.style.display = 'block';
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        }
-
-        function showPhoto() {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('photoSection').style.display = 'flex';
-        }
-
-        function logout() {
-            sessionStorage.removeItem('weddingAuthenticated');
-            document.getElementById('loginSection').style.display = 'flex';
-            document.getElementById('photoSection').style.display = 'none';
-            document.getElementById('passwordInput').value = '';
-        }
-
-        // Check if user is already authenticated
-        window.addEventListener('load', function() {
-            if (sessionStorage.getItem('weddingAuthenticated') === 'true') {
-                showPhoto();
-            }
-        });
-
-        // Focus on password input on load
-        document.getElementById('passwordInput').focus();
-    </script>
 </body>
 </html>
