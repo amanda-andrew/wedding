@@ -388,7 +388,61 @@
         .gallery-item:hover img {
             transform: scale(1.05);
         }
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .92);
+    z-index: 5000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    backdrop-filter: blur(8px);
+}
 
+.lightbox.visible {
+    display: flex;
+}
+
+.lightbox-image {
+    max-width: 95vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 6px;
+    animation: lightboxFade .25s ease;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 45px;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 5001;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    opacity: .6;
+}
+
+@keyframes lightboxFade {
+    from {
+        opacity: 0;
+        transform: scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+/* RSVP SECTION */
+.rsvp-container {
         /* RSVP SECTION */
         .rsvp-container {
             max-width: 500px;
@@ -596,7 +650,19 @@
 
     </div>
 </section>
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
 
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+
+    <img
+        id="lightboxImage"
+        class="lightbox-image"
+        src=""
+        alt="Wedding photo"
+        onclick="event.stopPropagation()"
+    >
+
+</div>
         <!-- RSVP SECTION -->
         <section id="rsvp" class="section-dark">
             <div class="rsvp-container">
@@ -683,6 +749,29 @@
                 passwordInput.focus();
             }
         });
+        function openLightbox(imageSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+
+    lightboxImage.src = imageSrc;
+    lightbox.classList.add('visible');
+
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+
+    lightbox.classList.remove('visible');
+
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeLightbox();
+    }
+});
     </script>
 </body>
 </html>
