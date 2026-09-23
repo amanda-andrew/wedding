@@ -112,10 +112,9 @@
     display: none;
 }
 
-.save-the-date-content {
-    <div class="save-the-date-content">
+<div class="save-the-date-content">
 
-    <div class="save-the-date-kicker">
+    <div class="save-the-date-title">
         SAVE THE DATE
     </div>
 
@@ -123,24 +122,61 @@
         Amanda<br>& Andrew
     </h1>
 
-   .save-the-date-details {
-    margin-top: 32px;
-    font-size: .9rem;
-    letter-spacing: 3px;
-    line-height: 2;
-    text-transform: uppercase;
+    <div class="wedding-date">
+        SEPTEMBER 25, 2027
+    </div>
+
+    <div class="wedding-venue">
+        SPRING LAKE GOLF CLUB
+    </div>
+
+    <div class="save-the-date-message">
+        Come celebrate with us
+    </div>
+
+</div>
+
+Then replace the relevant CSS with:
+
+.save-the-date-content {
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.save-the-date-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 400;
+    letter-spacing: 8px;
+    margin-bottom: 32px;
+}
+
+.save-the-date-names {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(70px, 12vw, 150px);
+    font-weight: 300;
+    line-height: .85;
+}
+
+.wedding-date {
+    margin-top: 36px;
+    font-size: clamp(18px, 2vw, 26px);
+    letter-spacing: 5px;
+    font-weight: 400;
+}
+
+.wedding-venue {
+    margin-top: 16px;
+    font-size: 15px;
+    letter-spacing: 4px;
 }
 
 .save-the-date-message {
-    margin-top: 22px;
+    margin-top: 26px;
     font-family: "Cormorant Garamond", serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-style: italic;
-    letter-spacing: 1px;
-    text-transform: none;
-    color: rgba(255, 255, 255, .9);
 }
-
 /* GUEST ACCESS */
 
 .guest-access {
@@ -646,49 +682,26 @@
     <div class="overlay"></div>
 
     <!-- SAVE THE DATE LANDING PAGE -->
-<div class="landing-page" id="landingPage">
+<div class="landi<div class="save-the-date-content">
 
-    <div class="save-the-date-content">
-
-        <div class="save-the-date-kicker">
-            SAVE THE DATE
-        </div>
-
-        <h1 class="save-the-date-names">
-            Amanda<br>& Andrew
-        </h1>
-
-        <div class="save-the-date-message">
-            More details coming soon
-        </div>
-
+    <div class="save-the-date-title">
+        SAVE THE DATE
     </div>
 
-    <div class="guest-access">
+    <h1 class="save-the-date-names">
+        Amanda<br>& Andrew
+    </h1>
 
-        <div class="guest-access-label">
-            Guest Access
-        </div>
+    <div class="wedding-date">
+        SEPTEMBER 25, 2027
+    </div>
 
-        <form class="login-form guest-login-form" onsubmit="handleLogin(event)">
+    <div class="wedding-venue">
+        SPRING LAKE GOLF CLUB
+    </div>
 
-            <input
-                type="password"
-                id="passwordInput"
-                placeholder="Enter password"
-                required
-            >
-
-            <button type="submit" class="login-btn">
-                Enter
-            </button>
-
-        </form>
-
-        <div class="error-message" id="errorMessage">
-            Incorrect password. Please try again.
-        </div>
-
+    <div class="save-the-date-message">
+        Come celebrate with us
     </div>
 
 </div>
