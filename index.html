@@ -565,20 +565,53 @@
 
     <div class="overlay"></div>
 
-    <!-- LANDING PAGE WITH LOGIN -->
-    <div class="landing-page" id="landingPage">
-        <div class="login-container">
-            <div class="login-content">
-                <h2>Amanda & Andrew</h2>
-                <p>Enter the password to view our wedding</p>
-                <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
-                <form class="login-form" onsubmit="handleLogin(event)">
-                    <input type="password" id="passwordInput" placeholder="Enter password" required>
-                    <button type="submit" class="login-btn">Enter</button>
-                </form>
-            </div>
+    <!-- SAVE THE DATE LANDING PAGE -->
+<div class="landing-page" id="landingPage">
+
+    <div class="save-the-date-content">
+
+        <div class="save-the-date-kicker">
+            SAVE THE DATE
         </div>
+
+        <h1 class="save-the-date-names">
+            Amanda<br>& Andrew
+        </h1>
+
+        <div class="save-the-date-message">
+            More details coming soon
+        </div>
+
     </div>
+
+    <div class="guest-access">
+
+        <div class="guest-access-label">
+            Guest Access
+        </div>
+
+        <form class="login-form guest-login-form" onsubmit="handleLogin(event)">
+
+            <input
+                type="password"
+                id="passwordInput"
+                placeholder="Enter password"
+                required
+            >
+
+            <button type="submit" class="login-btn">
+                Enter
+            </button>
+
+        </form>
+
+        <div class="error-message" id="errorMessage">
+            Incorrect password. Please try again.
+        </div>
+
+    </div>
+
+</div>
 
     <!-- MAIN WEBSITE CONTENT -->
     <div class="main-content" id="mainContent">
