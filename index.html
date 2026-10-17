@@ -27,12 +27,8 @@
     button, input, select, textarea { font: inherit; }
     button, a { -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 2px solid white; outline-offset: 4px; }
-    .slideshow { position: fixed; inset: 0; z-index: -3; background: #101010; overflow: hidden; }
-    .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.04); animation: fade 24s infinite; }
-    .slide:first-child { background-image: url("hero2.png"); }
-    .slide:nth-child(2) { background-image: url("hero3.png"); animation-delay: 12s; }
+    .slideshow { position: fixed; inset: 0; z-index: -3; background: #101010 url("hero2.png") center / cover no-repeat; }
     .overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.55) 48%, #080808 100%); }
-    @keyframes fade { 0% { opacity: 0; transform: scale(1.06); } 8% { opacity: 1; } 42% { opacity: 1; transform: scale(1); } 50% { opacity: 0; } 100% { opacity: 0; } }
     .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; }
     .eyebrow { margin: 0 0 26px; font-size: .72rem; font-weight: 400; letter-spacing: .38em; text-transform: uppercase; }
     .names { margin: 0; font: 300 clamp(4.5rem, 12vw, 9.5rem)/.82 var(--serif); letter-spacing: -.035em; }
@@ -98,7 +94,7 @@
   </style>
 </head>
 <body>
-  <div class="slideshow" aria-hidden="true"><div class="slide"></div><div class="slide"></div></div>
+  <div class="slideshow" aria-hidden="true"></div>
   <div class="overlay" aria-hidden="true"></div>
 
   <header class="save-date" id="home">
@@ -107,7 +103,7 @@
     <p class="date">SEPTEMBER 25, 2027</p>
     <p class="venue">SPRING LAKE GOLF CLUB</p>
     <p class="invitation">Come celebrate with us</p>
-    <a class="scroll-cue" href="#story">DISCOVER MORE ↓</a>
+    <a class="scroll-cue" href="#story">SCROLL TO EXPLORE ↓</a>
   </header>
 
   <nav class="navbar" aria-label="Main navigation">
