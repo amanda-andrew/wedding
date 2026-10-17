@@ -1,903 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amanda & Andrew | Wedding</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #000;
-            color: white;
-            font-family: Inter, sans-serif;
-            overflow-x: hidden;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* BACKGROUND SLIDESHOW */
-        .slideshow {
-            position: fixed;
-            inset: 0;
-            z-index: -3;
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            animation: fade 12s infinite;
-            transform: scale(1.05);
-        }
-
-        .slide:nth-child(1) {
-            background-image: url("hero2.png");
-            animation-delay: 0s;
-        }
-
-        .slide:nth-child(2) {
-            background-image: url("hero3.png");
-            animation-delay: 6s;
-        }
-
-        @keyframes fade {
-            0% {
-                opacity: 0;
-                transform: scale(1.08);
-            }
-            8% {
-                opacity: 1;
-            }
-            30% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            38% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(0, 0, 0, .15), rgba(0, 0, 0, .45));
-            z-index: -2;
-        }
-
-        /* LANDING PAGE - FULL SCREEN */
-        .landing-page {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .landing-page.hidden {
-            display: none;
-        }
-
-        /* SAVE THE DATE LANDING PAGE */
-
-.landing-page {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 40px 20px;
-}
-
-.landing-page.hidden {
-    display: none;
-}
-
-<div class="save-the-date-content">
-
-    <div class="save-the-date-title">
-        SAVE THE DATE
-    </div>
-
-    <h1 class="save-the-date-names">
-        Amanda<br>& Andrew
-    </h1>
-
-    <div class="wedding-date">
-        SEPTEMBER 25, 2027
-    </div>
-
-    <div class="wedding-venue">
-        SPRING LAKE GOLF CLUB
-    </div>
-
-    <div class="save-the-date-message">
-        Come celebrate with us
-    </div>
-
-</div>
-
-Then replace the relevant CSS with:
-
-.save-the-date-content {
-    text-align: center;
-    animation: fadeInUp 1s ease-out;
-}
-
-.save-the-date-title {
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(28px, 4vw, 52px);
-    font-weight: 400;
-    letter-spacing: 8px;
-    margin-bottom: 32px;
-}
-
-.save-the-date-names {
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(70px, 12vw, 150px);
-    font-weight: 300;
-    line-height: .85;
-}
-
-.wedding-date {
-    margin-top: 36px;
-    font-size: clamp(18px, 2vw, 26px);
-    letter-spacing: 5px;
-    font-weight: 400;
-}
-
-.wedding-venue {
-    margin-top: 16px;
-    font-size: 15px;
-    letter-spacing: 4px;
-}
-
-.save-the-date-message {
-    margin-top: 26px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.5rem;
-    font-style: italic;
-}
-/* GUEST ACCESS */
-
-.guest-access {
-    position: absolute;
-    bottom: 35px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(420px, 90%);
-    text-align: center;
-}
-
-.guest-access-label {
-    font-size: .7rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    color: rgba(255, 255, 255, .7);
-}
-
-.guest-login-form {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-}
-
-.guest-login-form input {
-    flex: 1;
-    padding: 12px 16px;
-    background: rgba(0, 0, 0, .25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, .35);
-    border-radius: 999px;
-    color: white;
-    font-family: Inter, sans-serif;
-}
-
-.guest-login-form input::placeholder {
-    color: rgba(255, 255, 255, .65);
-}
-
-.guest-login-form input:focus {
-    outline: none;
-    border-color: white;
-}
-
-.guest-login-form .login-btn {
-    padding: 12px 22px;
-    border-radius: 999px;
-    border: none;
-    background: white;
-    color: black;
-    cursor: pointer;
-    font-family: Inter, sans-serif;
-    font-weight: 500;
-}
-
-.guest-login-form .login-btn:hover {
-    opacity: .85;
-}
-
-.error-message {
-    display: none;
-    margin-top: 10px;
-    font-size: .8rem;
-    color: #ffb3b3;
-}
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .login-form input {
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .15);
-            border-radius: 6px;
-            color: white;
-            font-family: Inter, sans-serif;
-            font-size: 1rem;
-            transition: .3s;
-        }
-
-        .login-form input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, .12);
-            border-color: rgba(255, 255, 255, .3);
-        }
-
-        .login-form input::placeholder {
-            color: rgba(255, 255, 255, .5);
-        }
-
-        .login-btn {
-            padding: 14px 16px;
-            background: white;
-            color: #000;
-            border: none;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: .3s;
-            letter-spacing: 1px;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, .1);
-        }
-
-        .error-message {
-            color: #ff6b6b;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        /* NAVIGATION */
-        nav {
-            position: fixed;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            gap: 48px;
-            letter-spacing: 2px;
-            font-size: .8rem;
-            text-transform: uppercase;
-            backdrop-filter: blur(14px);
-            background: rgba(255, 255, 255, .08);
-            padding: 14px 28px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, .15);
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: .3s;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            opacity: .6;
-        }
-
-        /* MAIN CONTENT */
-        .main-content {
-            display: none;
-            position: relative;
-            z-index: 1;
-        }
-
-        .main-content.visible {
-            display: block;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-            position: relative;
-        }
-
-        .content {
-            max-width: 900px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .kicker {
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            font-size: .8rem;
-        }
-
-        h1 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(70px, 12vw, 170px);
-            font-weight: 300;
-            line-height: .9;
-        }
-
-        .date {
-            margin-top: 25px;
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            color: rgba(255, 255, 255, .8);
-        }
-
-        .cta-button {
-            margin-top: 55px;
-            border: none;
-            padding: 18px 38px;
-            border-radius: 999px;
-            background: white;
-            color: #111;
-            font-size: .9rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: .35s;
-            font-weight: 500;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, .3);
-        }
-
-        .scroll {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: .8rem;
-            letter-spacing: 4px;
-            opacity: .8;
-        }
-
-        /* SECTIONS */
-        section {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            padding: 80px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .section-dark {
-            background: rgba(0, 0, 0, .95);
-        }
-
-        .section-title {
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(40px, 8vw, 100px);
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 60px;
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        /* STORY SECTION */
-        .story-content {
-            max-width: 700px;
-            text-align: center;
-            line-height: 1.8;
-        }
-
-        .story-content p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, .85);
-        }
-
-        /* DETAILS GRID */
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .detail-card {
-            text-align: center;
-            padding: 40px 20px;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, .05);
-            border: 1px solid rgba(255, 255, 255, .1);
-            border-radius: 8px;
-            transition: .35s;
-        }
-
-        .detail-card:hover {
-            background: rgba(255, 255, 255, .1);
-            transform: translateY(-5px);
-        }
-
-        .detail-card h3 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .detail-card p {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, .75);
-            line-height: 1.6;
-        }
-
-        /* GALLERY */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .gallery-item {
-            position: relative;
-            aspect-ratio: 1;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform .35s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-.lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, .92);
-    z-index: 5000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    backdrop-filter: blur(8px);
-}
-
-.lightbox.visible {
-    display: flex;
-}
-
-.lightbox-image {
-    max-width: 95vw;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 6px;
-    animation: lightboxFade .25s ease;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 25px;
-    right: 35px;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 45px;
-    font-weight: 300;
-    cursor: pointer;
-    z-index: 5001;
-    line-height: 1;
-}
-
-.lightbox-close:hover {
-    opacity: .6;
-}
-
-@keyframes lightboxFade {
-    from {
-        opacity: 0;
-        transform: scale(.96);
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="Celebrate Amanda and Andrew on September 25, 2027 at Spring Lake Golf Club.">
+  <title>Amanda &amp; Andrew | Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #080808;
+      --white: #fff;
+      --muted: rgba(255,255,255,.76);
+      --line: rgba(255,255,255,.2);
+      --glass: rgba(255,255,255,.055);
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: Inter, Arial, sans-serif;
     }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 82px; }
+    body { margin: 0; background: var(--ink); color: var(--white); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid white; outline-offset: 4px; }
+    .slideshow { position: fixed; inset: 0; z-index: -3; background: #101010; overflow: hidden; }
+    .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.04); animation: fade 24s infinite; }
+    .slide:first-child { background-image: url("hero2.png"); }
+    .slide:nth-child(2) { background-image: url("hero3.png"); animation-delay: 12s; }
+    .overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.55) 48%, #080808 100%); }
+    @keyframes fade { 0% { opacity: 0; transform: scale(1.06); } 8% { opacity: 1; } 42% { opacity: 1; transform: scale(1); } 50% { opacity: 0; } 100% { opacity: 0; } }
+    .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; }
+    .eyebrow { margin: 0 0 26px; font-size: .72rem; font-weight: 400; letter-spacing: .38em; text-transform: uppercase; }
+    .names { margin: 0; font: 300 clamp(4.5rem, 12vw, 9.5rem)/.82 var(--serif); letter-spacing: -.035em; }
+    .names span { display: block; }
+    .date { margin-top: 38px; font-size: clamp(.82rem, 2vw, 1.08rem); letter-spacing: .24em; }
+    .venue { margin-top: 12px; font-size: .72rem; letter-spacing: .24em; }
+    .invitation { margin: 22px 0 0; font: italic 1.45rem var(--serif); color: var(--muted); }
+    .scroll-cue { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.72); text-decoration: none; font-size: .64rem; letter-spacing: .24em; }
+    .navbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: clamp(18px, 4vw, 48px); padding: 18px 16px; background: rgba(8,8,8,.84); border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.1); backdrop-filter: blur(14px); }
+    .navbar a { text-decoration: none; text-transform: uppercase; font-size: .68rem; letter-spacing: .16em; color: var(--muted); transition: color .2s ease; }
+    .navbar a:hover { color: var(--white); }
+    main { position: relative; }
+    .section { padding: clamp(76px, 10vw, 130px) 22px; }
+    .section-inner { width: min(100%, 1000px); margin: 0 auto; }
+    .section-title { margin: 0 0 38px; text-align: center; font: 300 clamp(2.7rem, 6vw, 4.3rem)/1 var(--serif); }
+    .story { max-width: 720px; margin: 0 auto; text-align: center; color: var(--muted); font: 1.15rem/1.9 var(--serif); }
+    .story p { margin: 0 0 20px; }
+    .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .detail-card { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 22px; text-align: center; background: var(--glass); border: 1px solid var(--line); border-radius: 5px; backdrop-filter: blur(10px); }
+    .detail-card h3 { margin: 0 0 10px; font: 400 1.9rem var(--serif); }
+    .detail-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
+    .gallery-item { display: block; width: 100%; padding: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); background: #171717; cursor: zoom-in; }
+    .gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
+    .gallery-item:hover img { transform: scale(1.035); }
+    .rsvp-container { max-width: 560px; margin: 0 auto; padding: clamp(28px, 5vw, 48px); background: rgba(0,0,0,.38); border: 1px solid var(--line); border-radius: 5px; backdrop-filter: blur(14px); }
+    .rsvp-container .section-title { margin-bottom: 10px; }
+    .rsvp-subtitle { margin: 0 0 30px; text-align: center; color: var(--muted); }
+    .form-grid { display: grid; gap: 16px; }
+    .form-group label { display: block; margin-bottom: 7px; font-size: .78rem; letter-spacing: .06em; }
+    .form-group input, .form-group select, .form-group textarea { display: block; width: 100%; min-height: 48px; padding: 12px 14px; color: white; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.22); border-radius: 3px; }
+    .form-group select option { color: #111; }
+    .form-group textarea { resize: vertical; }
+    .cta-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 24px; border: 1px solid white; background: white; color: #080808; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; cursor: pointer; transition: background .2s, color .2s; }
+    .cta-button:hover { color: white; background: transparent; }
+    .rsvp-form .cta-button { width: 100%; }
+    .form-note { margin: 14px 0 0; color: rgba(255,255,255,.65); font-size: .75rem; text-align: center; }
+    .form-status { margin: 16px 0 0; padding: 12px; border: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .lightbox { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.94); }
+    .lightbox[open] { display: flex; }
+    .lightbox img { display: block; max-width: 95vw; max-height: 88vh; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 14px; right: 20px; border: 0; background: transparent; color: white; font-size: 2.5rem; cursor: pointer; }
+    footer { padding: 34px 20px 42px; text-align: center; color: rgba(255,255,255,.62); font-size: .78rem; background: #080808; }
+    footer p { margin: 7px 0; }
+    .reveal { animation: rise .7s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 620px) {
+      .save-date { min-height: 92svh; padding-bottom: 70px; }
+      .eyebrow { letter-spacing: .28em; }
+      .date { letter-spacing: .15em; }
+      .venue { letter-spacing: .14em; }
+      .navbar { gap: 0; justify-content: space-around; padding: 15px 8px; }
+      .navbar a { font-size: .59rem; letter-spacing: .08em; }
+      .section { padding: 76px 18px; }
+      .details-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .detail-card { min-height: 145px; }
+      .gallery-item { aspect-ratio: 4 / 3; }
+      .rsvp-container { padding: 28px 20px; }
     }
-}
-/* RSVP SECTION */
-.rsvp-container {
-        /* RSVP SECTION */
-        .rsvp-container {
-            max-width: 500px;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, .05);
-            border: 1px solid rgba(255, 255, 255, .1);
-            border-radius: 8px;
-            padding: 60px 40px;
-        }
-
-        .rsvp-container h2 {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .rsvp-subtitle {
-            text-align: center;
-            color: rgba(255, 255, 255, .75);
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .15);
-            border-radius: 6px;
-            color: white;
-            font-family: Inter, sans-serif;
-            font-size: 1rem;
-            transition: .3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            background: rgba(255, 255, 255, .12);
-            border-color: rgba(255, 255, 255, .3);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, .5);
-        }
-
-        /* FOOTER */
-        footer {
-            background: rgba(0, 0, 0, .98);
-            padding: 40px;
-            text-align: center;
-            color: rgba(255, 255, 255, .6);
-            position: relative;
-            z-index: 1;
-        }
-
-        footer p {
-            margin: 10px 0;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            nav {
-                gap: 18px;
-                font-size: .7rem;
-                padding: 12px 20px;
-            }
-
-            .hero {
-                padding: 20px;
-            }
-
-            section {
-                padding: 60px 20px;
-            }
-
-            .rsvp-container {
-                padding: 40px 20px;
-            }
-
-            .details-grid,
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .login-content {
-                padding: 40px 20px;
-            }
-        }
-    </style>
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
 <body>
-    <!-- BACKGROUND SLIDESHOW -->
-    <div class="slideshow">
-        <div class="slide"></div>
-        <div class="slide"></div>
-    </div>
+  <div class="slideshow" aria-hidden="true"><div class="slide"></div><div class="slide"></div></div>
+  <div class="overlay" aria-hidden="true"></div>
 
-    <div class="overlay"></div>
+  <header class="save-date" id="home">
+    <p class="eyebrow">Save the date</p>
+    <h1 class="names"><span>Amanda</span><span>&amp; Andrew</span></h1>
+    <p class="date">SEPTEMBER 25, 2027</p>
+    <p class="venue">SPRING LAKE GOLF CLUB</p>
+    <p class="invitation">Come celebrate with us</p>
+    <a class="scroll-cue" href="#story">DISCOVER MORE ↓</a>
+  </header>
 
-    <!-- SAVE THE DATE LANDING PAGE -->
-<div class="landi<div class="save-the-date-content">
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="#story">Our Story</a>
+    <a href="#details">Details</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#rsvp">RSVP</a>
+  </nav>
 
-    <div class="save-the-date-title">
-        SAVE THE DATE
-    </div>
-
-    <h1 class="save-the-date-names">
-        Amanda<br>& Andrew
-    </h1>
-
-    <div class="wedding-date">
-        SEPTEMBER 25, 2027
-    </div>
-
-    <div class="wedding-venue">
-        SPRING LAKE GOLF CLUB
-    </div>
-
-    <div class="save-the-date-message">
-        Come celebrate with us
-    </div>
-
-</div>
-
-    <!-- MAIN WEBSITE CONTENT -->
-    <div class="main-content" id="mainContent">
-        <!-- NAVIGATION -->
-        <nav>
-            <a onclick="scrollToSection('story')">Story</a>
-            <a onclick="scrollToSection('details')">Details</a>
-            <a onclick="scrollToSection('gallery')">Gallery</a>
-            <a onclick="scrollToSection('rsvp')">RSVP</a>
-        </nav>
-
-        <!-- HERO SECTION -->
-        <section class="hero">
-            <div class="content">
-                <div class="kicker">We're getting married</div>
-                <h1>Amanda<br>& Andrew</h1>
-                <div class="date">More details to come...</div>
-                <button class="cta-button" onclick="scrollToSection('rsvp')">RSVP</button>
-            </div>
-            <div class="scroll">SCROLL ↓</div>
-        </section>
-
-        <!-- STORY SECTION -->
-        <section id="story" class="section-dark">
-            <div class="section-title">Our Story</div>
-            <div class="story-content">
-                <p>Share the beautiful beginning of your love story with your guests. Tell them where and when you met, and what made that moment special.</p>
-                <p>Describe the memorable moments that have brought you closer together. From adventures to quiet moments, celebrate the path that led to this day.</p>
-                <p>Share what this moment means to you both and why you're excited to celebrate with your loved ones.</p>
-            </div>
-        </section>
-
-        <!-- DETAILS SECTION -->
-        <section id="details" class="section-dark">
-            <div class="section-title">Details</div>
-            <div class="details-grid">
-                <div class="detail-card">
-                    <h3>Ceremony</h3>
-                    <p>More details coming soon</p>
-                </div>
-                <div class="detail-card">
-                    <h3>Reception</h3>
-                    <p>More details coming soon</p>
-                </div>
-                <div class="detail-card">
-                    <h3>Dinner</h3>
-                    <p>More details coming soon</p>
-                </div>
-                <div class="detail-card">
-                    <h3>Dress Code</h3>
-                    <p>More details coming soon</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- GALLERY SECTION -->
-<section id="gallery" class="section-dark">
-    <div class="section-title">Moments</div>
-
-    <div class="gallery-grid">
-
-        <div class="gallery-item" onclick="openLightbox('hero2.png')">
-            <img src="hero2.png" alt="Amanda & Andrew moment 1">
+  <main>
+    <section class="section" id="story">
+      <div class="section-inner">
+        <h2 class="section-title">Our Story</h2>
+        <div class="story">
+          <p>Every great story is made up of little moments, shared adventures, and the people who make life extraordinary.</p>
+          <p>We're so excited to celebrate this next chapter with the family and friends who mean the most to us.</p>
+          <p>More of our story coming soon. For now, save the date — we can't wait to see you.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="gallery-item" onclick="openLightbox('hero3.png')">
-            <img src="hero3.png" alt="Amanda & Andrew moment 2">
+    <section class="section" id="details">
+      <div class="section-inner">
+        <h2 class="section-title">The Details</h2>
+        <div class="details-grid">
+          <article class="detail-card"><h3>The Date</h3><p>Saturday, September 25, 2027</p></article>
+          <article class="detail-card"><h3>The Venue</h3><p>Spring Lake Golf Club</p></article>
+          <article class="detail-card"><h3>Ceremony &amp; Reception</h3><p>Timing and details coming soon</p></article>
+          <article class="detail-card"><h3>Dress Code</h3><p>Details coming soon</p></article>
         </div>
+      </div>
+    </section>
 
-    </div>
-</section>
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <section class="section" id="gallery">
+      <div class="section-inner">
+        <h2 class="section-title">Moments</h2>
+        <div class="gallery-grid">
+          <button class="gallery-item" type="button" data-image="hero2.png" aria-label="Enlarge wedding photo one"><img src="hero2.png" alt="Amanda and Andrew, photo one" loading="lazy"></button>
+          <button class="gallery-item" type="button" data-image="hero3.png" aria-label="Enlarge wedding photo two"><img src="hero3.png" alt="Amanda and Andrew, photo two" loading="lazy"></button>
+        </div>
+      </div>
+    </section>
 
-    <button class="lightbox-close" onclick="closeLightbox()">×</button>
-
-    <img
-        id="lightboxImage"
-        class="lightbox-image"
-        src=""
-        alt="Wedding photo"
-        onclick="event.stopPropagation()"
-    >
-
-</div>
-        <!-- RSVP SECTION -->
-        <section id="rsvp" class="section-dark">
-            <div class="rsvp-container">
-                <h2>RSVP</h2>
-                <p class="rsvp-subtitle">We'd love to have you celebrate with us</p>
-                <form>
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <select required>
-                            <option value="">Will you be attending?</option>
-                            <option value="yes">Yes, I'll be there!</option>
-                            <option value="no">No, I can't make it</option>
-                            <option value="maybe">Maybe, let me get back to you</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" placeholder="Number of Guests" min="1" max="10" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Any dietary restrictions or special requests?" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="cta-button" style="width: 100%;">Submit RSVP</button>
-                </form>
+    <section class="section" id="rsvp">
+      <div class="section-inner">
+        <div class="rsvp-container">
+          <h2 class="section-title">RSVP</h2>
+          <p class="rsvp-subtitle">We'd love to have you celebrate with us.</p>
+          <form class="rsvp-form" id="rsvpForm">
+            <div class="form-grid">
+              <div class="form-group"><label for="guestName">Your name</label><input id="guestName" name="name" autocomplete="name" required maxlength="120" placeholder="Full name"></div>
+              <div class="form-group"><label for="guestEmail">Your email</label><input id="guestEmail" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></div>
+              <div class="form-group"><label for="attendance">Will you be attending?</label><select id="attendance" name="attendance" required><option value="">Please select</option><option value="yes">Joyfully accepts</option><option value="no">Regretfully declines</option></select></div>
+              <div class="form-group"><label for="guestCount">Number of guests in your party</label><input id="guestCount" name="guests" type="number" min="1" max="10" value="1" required></div>
+              <div class="form-group"><label for="requests">Dietary needs or a note (optional)</label><textarea id="requests" name="requests" rows="3" maxlength="1000" placeholder="Let us know how we can help"></textarea></div>
+              <button class="cta-button" type="submit">Submit RSVP</button>
             </div>
-        </section>
+            <p class="form-note">Please note: online RSVP submissions are not connected yet. Submitting this form will not send or save your response.</p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        <!-- FOOTER -->
-        <footer>
-            <p>&copy; 2024 Amanda & Andrew. All rights reserved.</p>
-            <p>💕 With love and excitement</p>
-        </footer>
-    </div>
+  <footer>
+    <p>With love and excitement</p>
+    <p>&copy; <span id="year">2027</span> Amanda &amp; Andrew</p>
+    <p><a href="#home">Back to top ↑</a></p>
+  </footer>
 
-    <script>
-        // Password verification
-        const CORRECT_PASSWORD = "Hannon";
+  <dialog class="lightbox" id="lightbox" aria-label="Expanded wedding photo">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close photo">×</button>
+    <img id="lightboxImage" alt="Expanded photo of Amanda and Andrew">
+  </dialog>
 
-        function handleLogin(event) {
-            event.preventDefault();
-            const passwordInput = document.getElementById('passwordInput');
-            const enteredPassword = passwordInput.value;
-            const errorMessage = document.getElementById('errorMessage');
+  <script>
+    (function () {
+      "use strict";
 
-            if (enteredPassword === CORRECT_PASSWORD) {
-                sessionStorage.setItem('weddingAuthenticated', 'true');
-                document.getElementById('landingPage').classList.add('hidden');
-                document.getElementById('mainContent').classList.add('visible');
-                errorMessage.style.display = 'none';
-            } else {
-                errorMessage.style.display = 'block';
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        }
+      // Keep the footer year current without changing the wedding date.
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
+      // The RSVP form is intentionally honest until a real submission service is configured.
+      const rsvpForm = document.getElementById("rsvpForm");
+      const formStatus = document.getElementById("formStatus");
+      rsvpForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!rsvpForm.reportValidity()) return;
+        formStatus.hidden = false;
+        formStatus.textContent = "Thanks, " + document.getElementById("guestName").value.trim() + ". This website is not connected to an RSVP service yet, so your response has not been sent. Please contact Amanda and Andrew directly to confirm.";
+      });
 
-        // Check if user is already authenticated on page load
-        window.addEventListener('load', function() {
-            if (sessionStorage.getItem('weddingAuthenticated') === 'true') {
-                document.getElementById('landingPage').classList.add('hidden');
-                document.getElementById('mainContent').classList.add('visible');
-            } else {
-                document.getElementById('landingPage').classList.remove('hidden');
-                document.getElementById('mainContent').classList.remove('visible');
-                document.getElementById('passwordInput').focus();
-            }
+      // Accessible photo lightbox with Escape and backdrop close support.
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightboxImage");
+      const closeButton = document.getElementById("lightboxClose");
+      document.querySelectorAll("[data-image]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          lightboxImage.src = button.getAttribute("data-image");
+          if (typeof lightbox.showModal === "function") {
+            lightbox.showModal();
+          } else {
+            lightbox.setAttribute("open", "");
+          }
+          closeButton.focus();
         });
-
-        // Focus on password input when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            const passwordInput = document.getElementById('passwordInput');
-            if (passwordInput && sessionStorage.getItem('weddingAuthenticated') !== 'true') {
-                passwordInput.focus();
-            }
-        });
-        function openLightbox(imageSrc) {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-
-    lightboxImage.src = imageSrc;
-    lightbox.classList.add('visible');
-
-    document.body.style.overflow = 'hidden';
-}
-
-function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-
-    lightbox.classList.remove('visible');
-
-    document.body.style.overflow = '';
-}
-
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeLightbox();
-    }
-});
-    </script>
+      });
+      function closeLightbox() {
+        if (typeof lightbox.close === "function" && lightbox.open) {
+          lightbox.close();
+        } else {
+          lightbox.removeAttribute("open");
+        }
+        lightboxImage.removeAttribute("src");
+      }
+      closeButton.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox) closeLightbox();
+      });
+      lightbox.addEventListener("close", function () {
+        lightboxImage.removeAttribute("src");
+      });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && lightbox.open) closeLightbox();
+      });
+    }());
+  </script>
 </body>
 </html>
