@@ -44,6 +44,10 @@
     .accommodation-card h3 { margin: 0 0 8px; font: 400 1.8rem/1.1 var(--serif); }
     .accommodation-card p { margin: 8px 0; color: var(--muted); font-size: .88rem; }
     .accommodation-card a { display: inline-block; margin-top: 10px; text-underline-offset: 4px; font-size: .8rem; }
+    .favorite-category { margin-top: 52px; }
+    .favorite-category:first-of-type { margin-top: 0; }
+    .favorite-category-title { margin: 0 0 20px; font: 300 clamp(2rem, 4vw, 2.8rem)/1 var(--serif); text-align: center; }
+    .favorite-tagline { color: var(--white) !important; font: italic 1.15rem/1.55 var(--serif) !important; }
     .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; }
     .eyebrow { margin: 0 0 26px; font-size: .72rem; font-weight: 400; letter-spacing: .38em; text-transform: uppercase; }
     .names { margin: 0; font: 300 clamp(4.5rem, 12vw, 9.5rem)/.82 var(--serif); letter-spacing: -.035em; }
@@ -139,6 +143,7 @@
     <a href="#story">Our Story</a>
     <a href="#details">Details</a>
     <a href="#accommodations">Stay</a>
+    <a href="#favorites">Our Favorites</a>
     <a href="#gallery">Gallery</a>
     <a href="#rsvp">RSVP</a>
   </nav>
@@ -201,6 +206,82 @@
             <p>A boutique inn near Spring Lake’s shops, restaurants, and beach.</p>
             <a href="https://www.chateauinn.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="favorites">
+      <div class="section-inner">
+        <h2 class="section-title">Andrew &amp; Amanda’s Shore Favorites</h2>
+        <p class="story" style="margin-bottom: 48px;">Our go-to spots along the shore, from first coffee to one last scoop. This list may grow, so check back for more of our favorites.</p>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">Coffee</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Seawatch Coffee &amp; Market</h3>
+              <p class="favorite-tagline">Gotta hang 10. ☕🌊</p>
+              <a href="https://seawatchcoffeemarket.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Noon — Spring Lake</h3>
+              <p class="favorite-tagline">Coffee in hand, shopping bags at the ready.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">Breakfast</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Tom Bailey’s Market</h3>
+              <p class="favorite-tagline">Weekend mini donuts are a must — and you can’t leave the Shore without trying a Taylor ham, egg &amp; cheese.</p>
+              <a href="https://tombaileysmarket.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Nick &amp; Son’s Bakery</h3>
+              <p class="favorite-tagline">Set that alarm: the cardamom buns wait for no one.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">Restaurants &amp; Nightlife</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Marina Bar &amp; Grille</h3>
+              <p class="favorite-tagline">A beautiful view to keep Andrew’s TV ADHD happily occupied.</p>
+            </article>
+            <article class="accommodation-card">
+              <h3>Parker House</h3>
+              <p class="favorite-tagline">Grab a quick bite on the porch — or try to keep up with Amanda’s dance moves in God’s Basement.</p>
+            </article>
+            <article class="accommodation-card">
+              <h3>Leggetts</h3>
+              <p class="favorite-tagline">Roll in straight from the beach for pizza, and don’t forget to say hi to Marty.</p>
+              <a href="https://www.leggetts.us/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Columns</h3>
+              <p class="favorite-tagline">The beach, live music, and seafood? Tell me less!</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">The Sweet Tooth</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Hoffman’s Ice Cream</h3>
+              <p class="favorite-tagline">Amanda’s order: toasted coconut. Don’t even think about skipping it.</p>
+              <a href="https://hoffmansicecreamnj.net/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Surfside Frozen Custard</h3>
+              <p class="favorite-tagline">Not into all the wild flavors? Surfside sticks to the classics — and nails them.</p>
+              <a href="https://www.surfsidefrozencustard.com/welcome" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+          </div>
         </div>
       </div>
     </section>
