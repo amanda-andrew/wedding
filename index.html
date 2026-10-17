@@ -251,7 +251,7 @@
           <div class="accommodation-list">
             <article class="accommodation-card">
               <h3>Marina Bar &amp; Grille</h3>
-              <p class="favorite-tagline">With TVs everywhere for Andrew to catch the game — plus a beautiful harbor view.</p>
+              <p class="favorite-tagline">Catering to Andrew’s TV ADHD with a beautiful view.</p>
             </article>
             <article class="accommodation-card">
               <h3>Parker House</h3>
@@ -302,7 +302,10 @@
         <div class="rsvp-container">
           <h2 class="section-title">RSVP</h2>
           <p class="rsvp-subtitle">We'd love to have you celebrate with us.</p>
-          <form class="rsvp-form" id="rsvpForm">
+          <form class="rsvp-form" id="rsvpForm" action="https://formsubmit.co/ajax/aa.hannon.wedding@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New wedding RSVP — Amanda & Andrew">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_replyto" id="rsvpReplyTo">
             <div class="form-grid">
               <div class="form-group"><label for="guestName">Your name</label><input id="guestName" name="name" autocomplete="name" required maxlength="120" placeholder="Full name"></div>
               <div class="form-group"><label for="guestEmail">Your email</label><input id="guestEmail" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></div>
@@ -311,7 +314,7 @@
               <div class="form-group"><label for="requests">Dietary needs or a note (optional)</label><textarea id="requests" name="requests" rows="3" maxlength="1000" placeholder="Let us know how we can help"></textarea></div>
               <button class="cta-button" type="submit">Submit RSVP</button>
             </div>
-            <p class="form-note">Please note: online RSVP submissions are not connected yet. Submitting this form will not send or save your response.</p>
+            <p class="form-note">Your RSVP will be sent over HTTPS through our form service and emailed to us. Please don’t include sensitive information in the note field.</p>
             <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
           </form>
         </div>
@@ -367,14 +370,33 @@
       // Keep the footer year current without changing the wedding date.
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // The RSVP form is intentionally honest until a real submission service is configured.
+      // Send RSVP responses through FormSubmit; the endpoint emails the submission to the couple.
       const rsvpForm = document.getElementById("rsvpForm");
       const formStatus = document.getElementById("formStatus");
-      rsvpForm.addEventListener("submit", function (event) {
+      const submitButton = rsvpForm.querySelector('button[type="submit"]');
+      rsvpForm.addEventListener("submit", async function (event) {
         event.preventDefault();
         if (!rsvpForm.reportValidity()) return;
+        document.getElementById("rsvpReplyTo").value = document.getElementById("guestEmail").value.trim();
         formStatus.hidden = false;
-        formStatus.textContent = "Thanks, " + document.getElementById("guestName").value.trim() + ". This website is not connected to an RSVP service yet, so your response has not been sent. Please contact Amanda and Andrew directly to confirm.";
+        formStatus.textContent = "Sending your RSVP…";
+        submitButton.disabled = true;
+        try {
+          const response = await fetch(rsvpForm.action, {
+            method: "POST",
+            body: new FormData(rsvpForm),
+            headers: { "Accept": "application/json" }
+          });
+          const result = await response.json();
+          if (!response.ok || result.success === false) throw new Error("RSVP submission failed");
+          formStatus.textContent = "Thank you, " + document.getElementById("guestName").value.trim() + "! Your RSVP has been submitted. We’ll be in touch if we have any questions.";
+          rsvpForm.reset();
+          document.getElementById("guestCount").value = "1";
+        } catch (error) {
+          formStatus.textContent = "Sorry, we couldn’t confirm that your RSVP was sent. Please try again in a moment or contact Amanda and Andrew directly.";
+        } finally {
+          submitButton.disabled = false;
+        }
       });
 
       // Accessible photo lightbox with Escape and backdrop close support.
