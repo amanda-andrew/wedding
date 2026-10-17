@@ -29,6 +29,20 @@
     :focus-visible { outline: 2px solid white; outline-offset: 4px; }
     .slideshow { position: fixed; inset: 0; z-index: -3; background: #101010 url("hero2.png") center / cover no-repeat; }
     .overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.55) 48%, #080808 100%); }
+    .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; background: #080808 url("hero2.png") center / cover no-repeat; position: relative; isolation: isolate; }
+    .password-screen::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0,0,0,.68); }
+    .password-card { width: min(100%, 430px); padding: clamp(28px, 6vw, 48px); text-align: center; background: rgba(8,8,8,.72); border: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .password-card h1 { margin: 0 0 12px; font: 300 clamp(2.7rem, 8vw, 4rem)/1 var(--serif); }
+    .password-card p { color: var(--muted); margin: 0 0 24px; }
+    .password-form { display: grid; gap: 14px; }
+    .password-form label { text-align: left; font-size: .78rem; letter-spacing: .08em; }
+    .password-form input { width: 100%; min-height: 48px; padding: 12px 14px; color: white; background: rgba(255,255,255,.08); border: 1px solid var(--line); border-radius: 3px; }
+    .password-error { color: #ffd1d1 !important; font-size: .85rem; margin: 12px 0 0 !important; }
+    .accommodation-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .accommodation-card { padding: 26px; background: var(--glass); border: 1px solid var(--line); border-radius: 5px; }
+    .accommodation-card h3 { margin: 0 0 8px; font: 400 1.8rem/1.1 var(--serif); }
+    .accommodation-card p { margin: 8px 0; color: var(--muted); font-size: .88rem; }
+    .accommodation-card a { display: inline-block; margin-top: 10px; text-underline-offset: 4px; font-size: .8rem; }
     .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; }
     .eyebrow { margin: 0 0 26px; font-size: .72rem; font-weight: 400; letter-spacing: .38em; text-transform: uppercase; }
     .names { margin: 0; font: 300 clamp(4.5rem, 12vw, 9.5rem)/.82 var(--serif); letter-spacing: -.035em; }
@@ -83,7 +97,7 @@
       .navbar { gap: 0; justify-content: space-around; padding: 15px 8px; }
       .navbar a { font-size: .59rem; letter-spacing: .08em; }
       .section { padding: 76px 18px; }
-      .details-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .details-grid, .gallery-grid, .accommodation-list { grid-template-columns: 1fr; }
       .detail-card { min-height: 145px; }
       .gallery-item { aspect-ratio: 4 / 3; }
       .rsvp-container { padding: 28px 20px; }
@@ -94,6 +108,20 @@
   </style>
 </head>
 <body>
+  <section class="password-screen" id="passwordScreen" aria-labelledby="passwordTitle">
+    <div class="password-card">
+      <p class="eyebrow">A private invitation</p>
+      <h1 id="passwordTitle">Amanda &amp; Andrew</h1>
+      <p>Enter the password to explore our wedding website.</p>
+      <form class="password-form" id="passwordForm">
+        <label for="sitePassword">Website password</label>
+        <input id="sitePassword" name="password" type="password" autocomplete="current-password" required aria-describedby="passwordError" autofocus>
+        <button class="cta-button" type="submit">Enter</button>
+      </form>
+      <p class="password-error" id="passwordError" role="alert" hidden>That password didn't match. Please try again.</p>
+    </div>
+  </section>
+  <div id="siteContent" hidden>
   <div class="slideshow" aria-hidden="true"></div>
   <div class="overlay" aria-hidden="true"></div>
 
@@ -109,6 +137,7 @@
   <nav class="navbar" aria-label="Main navigation">
     <a href="#story">Our Story</a>
     <a href="#details">Details</a>
+    <a href="#accommodations">Stay</a>
     <a href="#gallery">Gallery</a>
     <a href="#rsvp">RSVP</a>
   </nav>
@@ -133,6 +162,55 @@
           <article class="detail-card"><h3>The Venue</h3><p>Spring Lake Golf Club</p></article>
           <article class="detail-card"><h3>Ceremony &amp; Reception</h3><p>Timing and details coming soon</p></article>
           <article class="detail-card"><h3>Dress Code</h3><p>Details coming soon</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="accommodations">
+      <div class="section-inner">
+        <h2 class="section-title">Where to Stay</h2>
+        <p class="story" style="margin-bottom: 34px;">A few places to consider for your stay in Spring Lake. We recommend booking early for the wedding weekend; please confirm rates and availability directly with each property.</p>
+        <div class="accommodation-list">
+          <article class="accommodation-card">
+            <h3>Chateau Inn &amp; Suites</h3>
+            <p>500 Warren Avenue, Spring Lake, NJ 07762</p>
+            <p>732-974-2000</p>
+            <p>A boutique inn in the heart of Spring Lake, near the beach, shops, and restaurants.</p>
+            <a href="https://www.chateauinn.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>The Hewitt Wellington Hotel</h3>
+            <p>200 Monmouth Avenue, Spring Lake, NJ 07762</p>
+            <p>732-974-1212</p>
+            <p>A historic hotel beside Spring Lake, with an on-site restaurant.</p>
+            <a href="https://www.hewittwellington.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>The Breakers on the Ocean</h3>
+            <p>1507 Ocean Avenue, Spring Lake, NJ 07762</p>
+            <p>732-449-7700</p>
+            <p>A beachfront hotel for guests who would like an oceanfront stay.</p>
+            <a href="https://www.breakershotel.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>Spring Lake Inn</h3>
+            <p>104 Salem Avenue, Spring Lake, NJ 07762</p>
+            <p>732-449-2010</p>
+            <p>A charming bed-and-breakfast with individually themed guest rooms and suites.</p>
+            <a href="https://www.springlakeinn.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>The Shore Club</h3>
+            <p>700 State Highway 71, Spring Lake, NJ 07762</p>
+            <p>732-449-3666</p>
+            <p>A hotel with renovated rooms and suites, plus a pool.</p>
+            <a href="https://www.theshoreclubnj.com/accommodations" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>More local options</h3>
+            <p>Explore additional hotels, inns, and bed-and-breakfasts around Spring Lake.</p>
+            <a href="https://www.visitspringlake.com/stay/alllodging/" target="_blank" rel="noopener noreferrer">Browse Spring Lake lodging ↗</a>
+          </article>
         </div>
       </div>
     </section>
@@ -179,6 +257,36 @@
     <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close photo">×</button>
     <img id="lightboxImage" alt="Expanded photo of Amanda and Andrew">
   </dialog>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      const form = document.getElementById("passwordForm");
+      const input = document.getElementById("sitePassword");
+      const error = document.getElementById("passwordError");
+      const gate = document.getElementById("passwordScreen");
+      const content = document.getElementById("siteContent");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (input.value === "Hannon") {
+          gate.hidden = true;
+          content.hidden = false;
+          sessionStorage.setItem("weddingSiteUnlocked", "yes");
+          document.getElementById("home").setAttribute("tabindex", "-1");
+          document.getElementById("home").focus({ preventScroll: true });
+        } else {
+          error.hidden = false;
+          input.value = "";
+          input.focus();
+        }
+      });
+      if (sessionStorage.getItem("weddingSiteUnlocked") === "yes") {
+        gate.hidden = true;
+        content.hidden = false;
+      }
+    })();
+  </script>
 
   <script>
     (function () {
