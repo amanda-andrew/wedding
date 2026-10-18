@@ -42,6 +42,7 @@
      #shoreEnter { display: inline-block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: #25231f; cursor: pointer; font: 400 clamp(3.8rem, 10vw, 6.4rem)/1.05 "Great Vibes", var(--script); letter-spacing: 0; text-shadow: 0 1px 0 rgba(255,255,255,.65); transform: rotate(-2deg); }
      #shoreEnter:hover { opacity: .78; }
      #shoreEnter:focus-visible { outline: 2px solid #8a7763; outline-offset: 10px; }
+     .welcome-date { display: block; margin-top: 22px; color: #756858; font: 400 clamp(.72rem, 2vw, .88rem)/1.5 var(--sans); letter-spacing: .22em; text-transform: uppercase; }
      .tap-cue { display: block; margin-top: clamp(24px, 5vh, 38px); font: 500 .68rem/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: #66594b; text-shadow: none; }
      .tap-arrow { display: inline-block; margin-left: 6px; font-size: 1.15rem; transition: transform .2s ease; }
      #shoreEnter:hover .tap-arrow { transform: translateY(3px); }
@@ -150,7 +151,7 @@
   <section class="password-screen" id="passwordScreen" aria-labelledby="passwordTitle">
     <div class="password-card">
       <div id="shoreQuestion">
-        <button id="shoreEnter" type="button" aria-controls="passwordStep" aria-labelledby="passwordTitle"><span id="passwordTitle">See you down the shore?</span><span class="tap-cue">TAP TO ENTER <span class="tap-arrow" aria-hidden="true">↓</span></span></button>
+        <button id="shoreEnter" type="button" aria-controls="passwordStep" aria-labelledby="passwordTitle"><span id="passwordTitle">See you down the shore?</span><span class="welcome-date">SEPTEMBER 25, 2027</span><span class="tap-cue">TAP TO ENTER <span class="tap-arrow" aria-hidden="true">↓</span></span></button>
       </div>
       <div id="passwordStep" class="password-rsvp" hidden>
         <form class="password-form password-entry-form" id="entryPasswordForm">
