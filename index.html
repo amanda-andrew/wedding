@@ -8,7 +8,7 @@
   <title>Amanda &amp; Andrew | Wedding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
@@ -33,14 +33,15 @@
     button, a { -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 2px solid white; outline-offset: 4px; }
      .slideshow, .overlay { display: none; }
-         .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; position: relative; isolation: isolate; overflow: hidden; background-color: #b99a9c; background-image: radial-gradient(ellipse at 15% 20%, rgba(255,246,241,.48), transparent 42%), radial-gradient(ellipse at 88% 76%, rgba(102,67,75,.2), transparent 48%), linear-gradient(135deg, #cdb4ad 0%, #b99a9c 48%, #d7c2b5 100%); }
-     .password-screen::before { content: ""; position: absolute; inset: 0; z-index: 0; background: repeating-linear-gradient(115deg, transparent 0, rgba(255,255,255,.035) 1px, transparent 3px, transparent 7px); }
-     .password-card { position: relative; z-index: 1; width: min(100%, 560px); min-height: clamp(300px, 48vh, 390px); display: flex; flex-direction: column; justify-content: center; padding: clamp(42px, 8vw, 78px) clamp(22px, 6vw, 54px); text-align: center; color: #24231f; background: linear-gradient(150deg, #fffefa 0%, #f8f5ee 56%, #eee8df 100%); border: 1px solid rgba(255,255,255,.92); box-shadow: 0 30px 52px rgba(60,39,43,.28), 0 5px 12px rgba(60,39,43,.12), inset 0 0 0 1px rgba(191,178,161,.14); }
+         .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; position: relative; isolation: isolate; overflow: hidden; background: #090b0a url("hero2.png") center / cover no-repeat; }
+     .password-screen::before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.82)); }
+     .password-card { position: relative; z-index: 1; width: min(100%, 560px); min-height: clamp(300px, 48vh, 390px); display: flex; flex-direction: column; justify-content: center; padding: clamp(42px, 8vw, 78px) clamp(22px, 6vw, 54px); text-align: center; color: #24231f; background: linear-gradient(150deg, #fffefa 0%, #f8f5ee 56%, #eee8df 100%); border: 1px solid rgba(255,255,255,.92); box-shadow: 0 30px 52px rgba(0,0,0,.45), 0 5px 12px rgba(0,0,0,.3), inset 0 0 0 1px rgba(191,178,161,.14); transform-style: preserve-3d; perspective: 1200px; }
      .password-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 49.65%, rgba(171,153,139,.48) 49.9%, rgba(255,255,255,.72) 50.15%, transparent 50.5%), linear-gradient(35deg, transparent 49.65%, rgba(171,153,139,.4) 49.9%, rgba(255,255,255,.65) 50.15%, transparent 50.5%); opacity: .8; }
-     .password-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 28%; pointer-events: none; background: linear-gradient(180deg, rgba(255,255,255,.7), rgba(225,216,204,.12)); clip-path: polygon(0 0, 100% 0, 50% 100%); opacity: .5; }
+     .password-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 52%; pointer-events: none; background: linear-gradient(180deg, #fffefa 0%, #eee7dc 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transform: rotateX(0deg); transition: transform .85s cubic-bezier(.2,.75,.25,1); backface-visibility: visible; z-index: 3; filter: drop-shadow(0 5px 4px rgba(69,53,40,.16)); }
+     .password-card.is-opening::after { transform: rotateX(180deg); }
      .password-card > * { position: relative; z-index: 1; }
      .password-card h1, .password-card .eyebrow { display: none; }
-     #shoreEnter { display: inline-block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: #25231f; cursor: pointer; font: 400 clamp(3.8rem, 10vw, 6.4rem)/1.05 "Great Vibes", var(--script); letter-spacing: 0; text-shadow: 0 1px 0 rgba(255,255,255,.65); }
+     #shoreEnter { display: inline-block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: #25231f; cursor: pointer; font: italic 400 clamp(3.1rem, 8vw, 5.2rem)/1.08 "Bodoni Moda", "Cormorant Garamond", serif; letter-spacing: -.045em; text-shadow: 0 1px 0 rgba(255,255,255,.65); }
      #passwordTitle { display: block; transform: rotate(-7deg); transform-origin: center; }
      #shoreEnter:hover { opacity: .78; }
      #shoreEnter:focus-visible { outline: 2px solid #8a7763; outline-offset: 10px; }
@@ -377,9 +378,14 @@
       const content = document.getElementById("siteContent");
       const passwordStep = document.getElementById("passwordStep");
       document.getElementById("shoreEnter").addEventListener("click", function () {
-        document.getElementById("shoreQuestion").hidden = true;
-        passwordStep.hidden = false;
-        input.focus();
+        const card = document.querySelector(".password-card");
+        card.classList.add("is-opening");
+        document.getElementById("shoreEnter").setAttribute("aria-expanded", "true");
+        window.setTimeout(function () {
+          document.getElementById("shoreQuestion").hidden = true;
+          passwordStep.hidden = false;
+          input.focus();
+        }, 650);
       });
       entryForm.addEventListener("submit", function (event) {
         event.preventDefault();
