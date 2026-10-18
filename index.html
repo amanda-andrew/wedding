@@ -8,7 +8,7 @@
   <title>Amanda &amp; Andrew | Wedding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
@@ -21,6 +21,7 @@
       --pink-deep: #c94f80;
       --green: #244b3c;
       --serif: "Cormorant Garamond", Georgia, serif;
+      --script: "Dancing Script", "Brush Script MT", cursive;
       --sans: Inter, Arial, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
@@ -35,7 +36,19 @@
     .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; background: #f8f8ef url("hero2.png") center / cover no-repeat; position: relative; isolation: isolate; }
     .password-screen::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(36,75,60,.42); }
     .password-card { width: min(100%, 430px); padding: clamp(28px, 6vw, 48px); text-align: center; color: var(--green); background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.8); border-radius: 12px; box-shadow: 0 18px 55px rgba(24,57,44,.22); backdrop-filter: blur(12px); }
-    .password-card h1 { margin: 0 0 12px; font: 300 clamp(2.7rem, 8vw, 4rem)/1 var(--serif); }
+    .password-card h1 { margin: 0 0 12px; font: 500 clamp(3rem, 9vw, 4.5rem)/1 var(--script); color: var(--pink-deep); }
+    .password-card .eyebrow { font-family: var(--sans); }
+    .names { font-family: var(--script); font-weight: 500; font-size: clamp(4.2rem, 11vw, 8rem); letter-spacing: 0; line-height: .95; }
+    .section-title, .favorite-category-title, .detail-card h3, .accommodation-card h3 { font-family: var(--script); font-weight: 500; }
+    .section-title { font-size: clamp(3rem, 7vw, 5rem); }
+    .password-rsvp { margin-top: 22px; text-align: left; }
+    .password-rsvp h2 { margin: 0 0 8px; text-align: center; font: 500 clamp(2.4rem, 7vw, 3.4rem)/1.1 var(--script); color: var(--pink-deep); }
+    .password-rsvp .intro { text-align: center; margin-bottom: 20px; }
+    .password-rsvp .form-grid { display: grid; gap: 12px; }
+    .password-rsvp .form-group label { display: block; margin-bottom: 5px; font-size: .76rem; letter-spacing: .03em; }
+    .password-rsvp .form-group input, .password-rsvp .form-group select, .password-rsvp .form-group textarea { display: block; width: 100%; min-height: 44px; padding: 10px 12px; color: var(--green); background: #fff; border: 1px solid #d7a0b4; border-radius: 6px; }
+    .password-rsvp .form-group textarea { resize: vertical; }
+    .password-rsvp .password-error { color: #a82e5a !important; }
     .password-card p { color: var(--muted); margin: 0 0 24px; }
     .password-form { display: grid; gap: 14px; }
     .password-form label { text-align: left; font-size: .78rem; letter-spacing: .08em; }
@@ -128,14 +141,23 @@
         </div>
         <p class="password-error" id="shoreNoMessage" hidden>We’ll miss you down the shore!</p>
       </div>
-      <div id="passwordStep" hidden>
-        <p>We can’t wait to see you. Enter the password to explore our wedding website.</p>
-        <form class="password-form" id="passwordForm">
-          <label for="sitePassword">Website password</label>
-          <input id="sitePassword" name="password" type="password" autocomplete="current-password" required aria-describedby="passwordError" autofocus>
-          <button class="cta-button" type="submit">Enter</button>
+      <div id="passwordStep" class="password-rsvp" hidden>
+        <h2>Kindly RSVP</h2>
+        <p class="intro">Let us know if we’ll see you down the shore.</p>
+        <form class="form-grid" id="entryRsvpForm" action="https://formsubmit.co/ajax/aa.hannon.wedding@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New wedding RSVP — Amanda & Andrew">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_replyto" id="entryReplyTo">
+          <div class="form-group"><label for="entryGuestName">Your name</label><input id="entryGuestName" name="name" autocomplete="name" required maxlength="120" placeholder="Full name"></div>
+          <div class="form-group"><label for="entryGuestEmail">Your email</label><input id="entryGuestEmail" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></div>
+          <div class="form-group"><label for="entryAttendance">Will you be attending?</label><select id="entryAttendance" name="attendance" required><option value="">Please select</option><option value="yes">Joyfully accepts</option><option value="no">Regretfully declines</option></select></div>
+          <div class="form-group"><label for="entryGuestCount">Number of guests in your party</label><input id="entryGuestCount" name="guests" type="number" min="1" max="10" value="1" required></div>
+          <div class="form-group"><label for="entryRequests">Dietary needs or a note (optional)</label><textarea id="entryRequests" name="requests" rows="2" maxlength="1000" placeholder="Let us know how we can help"></textarea></div>
+          <div class="form-group"><label for="sitePassword">Website password</label><input id="sitePassword" type="password" autocomplete="current-password" required aria-describedby="passwordError" placeholder="Enter password"></div>
+          <button class="cta-button" id="entryContinue" type="submit">Submit RSVP &amp; Continue</button>
+          <p class="password-error" id="passwordError" role="alert" hidden>That password didn't match. Please try again.</p>
+          <p class="form-status" id="entryFormStatus" role="status" aria-live="polite" hidden></p>
         </form>
-        <p class="password-error" id="passwordError" role="alert" hidden>That password didn't match. Please try again.</p>
       </div>
     </div>
   </section>
@@ -344,12 +366,14 @@
   <script>
     (function () {
       "use strict";
-      const form = document.getElementById("passwordForm");
+      const entryForm = document.getElementById("entryRsvpForm");
       const input = document.getElementById("sitePassword");
       const error = document.getElementById("passwordError");
       const gate = document.getElementById("passwordScreen");
       const content = document.getElementById("siteContent");
       const passwordStep = document.getElementById("passwordStep");
+      const entryStatus = document.getElementById("entryFormStatus");
+      const entrySubmit = document.getElementById("entryContinue");
       document.getElementById("shoreYes").addEventListener("click", function () {
         document.getElementById("shoreQuestion").hidden = true;
         document.getElementById("shoreNoMessage").hidden = true;
@@ -359,18 +383,37 @@
       document.getElementById("shoreNo").addEventListener("click", function () {
         document.getElementById("shoreNoMessage").hidden = false;
       });
-      form.addEventListener("submit", function (event) {
+      entryForm.addEventListener("submit", async function (event) {
         event.preventDefault();
-        if (input.value === "Hannon") {
-          gate.hidden = true;
-          content.hidden = false;
-          sessionStorage.setItem("weddingSiteUnlocked", "yes");
-          document.getElementById("home").setAttribute("tabindex", "-1");
-          document.getElementById("home").focus({ preventScroll: true });
-        } else {
+        if (!entryForm.reportValidity()) return;
+        if (input.value !== "Hannon") {
           error.hidden = false;
           input.value = "";
           input.focus();
+          return;
+        }
+        error.hidden = true;
+        document.getElementById("entryReplyTo").value = document.getElementById("entryGuestEmail").value.trim();
+        entryStatus.hidden = false;
+        entryStatus.textContent = "Sending your RSVP…";
+        entrySubmit.disabled = true;
+        try {
+          const response = await fetch(entryForm.action, {
+            method: "POST",
+            body: new FormData(entryForm),
+            headers: { "Accept": "application/json" }
+          });
+          const result = await response.json();
+          if (!response.ok || result.success === false) throw new Error("RSVP submission failed");
+          sessionStorage.setItem("weddingSiteUnlocked", "yes");
+          gate.hidden = true;
+          content.hidden = false;
+          document.getElementById("home").setAttribute("tabindex", "-1");
+          document.getElementById("home").focus({ preventScroll: true });
+        } catch (submitError) {
+          entryStatus.textContent = "We couldn’t confirm your RSVP was sent. Please try again. Your details have not been cleared.";
+        } finally {
+          entrySubmit.disabled = false;
         }
       });
       if (sessionStorage.getItem("weddingSiteUnlocked") === "yes") {
