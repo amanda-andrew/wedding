@@ -39,6 +39,11 @@
      .password-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 49.65%, rgba(171,153,139,.48) 49.9%, rgba(255,255,255,.72) 50.15%, transparent 50.5%), linear-gradient(35deg, transparent 49.65%, rgba(171,153,139,.4) 49.9%, rgba(255,255,255,.65) 50.15%, transparent 50.5%); opacity: .8; }
      .password-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 52%; pointer-events: none; background: linear-gradient(180deg, #fffefa 0%, #eee7dc 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transform: rotateX(0deg); transition: transform .85s cubic-bezier(.2,.75,.25,1); backface-visibility: visible; z-index: 0; filter: drop-shadow(0 5px 4px rgba(69,53,40,.16)); }
      .password-card.is-opening::after { transform: rotateX(180deg); }
+     .password-card::before { transition: opacity .65s ease; }
+     .password-card.is-opening::before { opacity: .12; }
+     .password-card.is-opening { animation: envelope-lift .9s cubic-bezier(.2,.75,.25,1) both; }
+     @keyframes envelope-lift { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(-12px) scale(1.025); } 100% { transform: translateY(4px) scale(.98); } }
+     @media (prefers-reduced-motion: reduce) { .password-card.is-opening { animation-duration: .01ms; } .password-card::after, .password-card::before { transition-duration: .01ms; } }
      .password-card > * { position: relative; z-index: 1; }
      .password-card h1, .password-card .eyebrow { display: none; }
      #shoreEnter { display: inline-block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: #25231f; cursor: pointer; font: italic 400 clamp(3.1rem, 8vw, 5.2rem)/1.08 "Bodoni Moda", "Cormorant Garamond", serif; letter-spacing: -.045em; text-shadow: 0 1px 0 rgba(255,255,255,.65); }
@@ -378,9 +383,18 @@
       const content = document.getElementById("siteContent");
       const passwordStep = document.getElementById("passwordStep");
       document.getElementById("shoreEnter").addEventListener("click", function () {
-        document.getElementById("shoreQuestion").hidden = true;
-        passwordStep.hidden = false;
-        input.focus();
+        const envelope = document.querySelector(".password-card");
+        const question = document.getElementById("shoreQuestion");
+        const enterButton = document.getElementById("shoreEnter");
+        enterButton.disabled = true;
+        envelope.classList.add("is-opening");
+        window.setTimeout(function () {
+          question.hidden = true;
+          passwordStep.hidden = false;
+          envelope.classList.remove("is-opening");
+          enterButton.disabled = false;
+          input.focus();
+        }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 30 : 900);
       });
       entryForm.addEventListener("submit", function (event) {
         event.preventDefault();
