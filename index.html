@@ -11,12 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: dark;
-      --ink: #080808;
-      --white: #fff;
-      --muted: rgba(255,255,255,.76);
-      --line: rgba(255,255,255,.2);
-      --glass: rgba(255,255,255,.055);
+      color-scheme: light;
+      --ink: #f8f8ef;
+      --white: #244b3c;
+      --muted: rgba(36,75,60,.78);
+      --line: rgba(36,75,60,.22);
+      --glass: rgba(255,255,255,.72);
+      --pink: #e98eae;
+      --pink-deep: #c94f80;
+      --green: #244b3c;
       --serif: "Cormorant Garamond", Georgia, serif;
       --sans: Inter, Arial, sans-serif;
     }
@@ -28,19 +31,18 @@
     button, input, select, textarea { font: inherit; }
     button, a { -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 2px solid white; outline-offset: 4px; }
-    .slideshow { position: fixed; inset: 0; z-index: -3; background: #101010 url("hero2.png") center / cover no-repeat; }
-    .overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.55) 48%, #080808 100%); }
-    .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; background: #080808 url("hero2.png") center / cover no-repeat; position: relative; isolation: isolate; }
-    .password-screen::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(0,0,0,.68); }
-    .password-card { width: min(100%, 430px); padding: clamp(28px, 6vw, 48px); text-align: center; background: rgba(8,8,8,.72); border: 1px solid var(--line); backdrop-filter: blur(12px); }
+     .slideshow, .overlay { display: none; }
+    .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; background: #f8f8ef url("hero2.png") center / cover no-repeat; position: relative; isolation: isolate; }
+    .password-screen::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(36,75,60,.42); }
+    .password-card { width: min(100%, 430px); padding: clamp(28px, 6vw, 48px); text-align: center; color: var(--green); background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.8); border-radius: 12px; box-shadow: 0 18px 55px rgba(24,57,44,.22); backdrop-filter: blur(12px); }
     .password-card h1 { margin: 0 0 12px; font: 300 clamp(2.7rem, 8vw, 4rem)/1 var(--serif); }
     .password-card p { color: var(--muted); margin: 0 0 24px; }
     .password-form { display: grid; gap: 14px; }
     .password-form label { text-align: left; font-size: .78rem; letter-spacing: .08em; }
-    .password-form input { width: 100%; min-height: 48px; padding: 12px 14px; color: white; background: rgba(255,255,255,.08); border: 1px solid var(--line); border-radius: 3px; }
+    .password-form input { width: 100%; min-height: 48px; padding: 12px 14px; color: var(--green); background: #fff; border: 1px solid #d7a0b4; border-radius: 6px; }
     .password-error { color: #ffd1d1 !important; font-size: .85rem; margin: 12px 0 0 !important; }
     .accommodation-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-    .accommodation-card { padding: 26px; background: var(--glass); border: 1px solid var(--line); border-radius: 5px; }
+    .accommodation-card { padding: 26px; background: var(--glass); border: 1px solid #e9b0c4; border-radius: 12px; box-shadow: 0 8px 25px rgba(36,75,60,.06); }
     .accommodation-card h3 { margin: 0 0 8px; font: 400 1.8rem/1.1 var(--serif); }
     .accommodation-card p { margin: 8px 0; color: var(--muted); font-size: .88rem; }
     .accommodation-card a { display: inline-block; margin-top: 10px; text-underline-offset: 4px; font-size: .8rem; }
@@ -48,7 +50,9 @@
     .favorite-category:first-of-type { margin-top: 0; }
     .favorite-category-title { margin: 0 0 20px; font: 300 clamp(2rem, 4vw, 2.8rem)/1 var(--serif); text-align: center; }
     .favorite-tagline { color: var(--white) !important; font: italic 1.15rem/1.55 var(--serif) !important; }
-    .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; }
+    .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; isolation: isolate; color: #fff; background: #315d4a url("hero2.png") center / cover no-repeat; }
+    .save-date::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(28,68,49,.18), rgba(28,68,49,.42)); }
+    .save-date .eyebrow, .save-date .date, .save-date .venue, .save-date .invitation { color: #fff; }
     .eyebrow { margin: 24px 0 0; font: 400 1rem/1.5 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
     .names { margin: 0; font: 300 clamp(3.8rem, 9vw, 7rem)/.9 var(--serif); letter-spacing: -.025em; }
     .names span { display: block; }
@@ -56,9 +60,9 @@
     .venue { margin-top: 10px; font: 400 1rem/1.5 var(--sans); letter-spacing: .12em; }
     .invitation { margin: 18px 0 0; font: 400 1rem/1.5 var(--sans); color: var(--muted); }
     .scroll-cue { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.72); text-decoration: none; font: 400 .9rem/1.5 var(--sans); letter-spacing: .1em; }
-    .navbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: clamp(18px, 4vw, 48px); padding: 18px 16px; background: rgba(8,8,8,.84); border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.1); backdrop-filter: blur(14px); }
+    .navbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: clamp(18px, 4vw, 48px); padding: 18px 16px; background: rgba(251,226,235,.96); border-top: 1px solid #f1c6d5; border-bottom: 1px solid #e9a9c0; backdrop-filter: blur(14px); }
     .navbar a { text-decoration: none; text-transform: uppercase; font-size: .68rem; letter-spacing: .16em; color: var(--muted); transition: color .2s ease; }
-    .navbar a:hover { color: var(--white); }
+    .navbar a:hover { color: var(--pink-deep); }
     main { position: relative; }
     .section { padding: clamp(76px, 10vw, 130px) 22px; }
     .section-inner { width: min(100%, 1000px); margin: 0 auto; }
@@ -66,31 +70,31 @@
     .story { max-width: 720px; margin: 0 auto; text-align: center; color: var(--muted); font: 1.15rem/1.9 var(--serif); }
     .story p { margin: 0 0 20px; }
     .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-    .detail-card { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 22px; text-align: center; background: var(--glass); border: 1px solid var(--line); border-radius: 5px; backdrop-filter: blur(10px); }
+    .detail-card { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 22px; text-align: center; background: var(--glass); border: 1px solid #e9b0c4; border-radius: 12px; box-shadow: 0 8px 25px rgba(36,75,60,.06); }
     .detail-card h3 { margin: 0 0 10px; font: 400 1.9rem var(--serif); }
     .detail-card p { margin: 0; color: var(--muted); font-size: .9rem; }
     .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
     .gallery-item { display: block; width: 100%; padding: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); background: #171717; cursor: zoom-in; }
     .gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
     .gallery-item:hover img { transform: scale(1.035); }
-    .rsvp-container { max-width: 560px; margin: 0 auto; padding: clamp(28px, 5vw, 48px); background: rgba(0,0,0,.38); border: 1px solid var(--line); border-radius: 5px; backdrop-filter: blur(14px); }
+    .rsvp-container { max-width: 560px; margin: 0 auto; padding: clamp(28px, 5vw, 48px); background: #fbe2eb; border: 1px solid #e9b0c4; border-radius: 12px; }
     .rsvp-container .section-title { margin-bottom: 10px; }
     .rsvp-subtitle { margin: 0 0 30px; text-align: center; color: var(--muted); }
     .form-grid { display: grid; gap: 16px; }
     .form-group label { display: block; margin-bottom: 7px; font-size: .78rem; letter-spacing: .06em; }
-    .form-group input, .form-group select, .form-group textarea { display: block; width: 100%; min-height: 48px; padding: 12px 14px; color: white; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.22); border-radius: 3px; }
+    .form-group input, .form-group select, .form-group textarea { display: block; width: 100%; min-height: 48px; padding: 12px 14px; color: var(--green); background: #fff; border: 1px solid #d7a0b4; border-radius: 6px; }
     .form-group select option { color: #111; }
     .form-group textarea { resize: vertical; }
-    .cta-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 24px; border: 1px solid white; background: white; color: #080808; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; cursor: pointer; transition: background .2s, color .2s; }
-    .cta-button:hover { color: white; background: transparent; }
+    .cta-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 24px; border: 1px solid var(--pink-deep); border-radius: 6px; background: var(--pink); color: #173e30; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 600; cursor: pointer; transition: background .2s, color .2s; }
+    .cta-button:hover { color: #fff; background: var(--pink-deep); }
     .rsvp-form .cta-button { width: 100%; }
-    .form-note { margin: 14px 0 0; color: rgba(255,255,255,.65); font-size: .75rem; text-align: center; }
+    .form-note { margin: 14px 0 0; color: var(--muted); font-size: .75rem; text-align: center; }
     .form-status { margin: 16px 0 0; padding: 12px; border: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
     .lightbox { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.94); }
     .lightbox[open] { display: flex; }
     .lightbox img { display: block; max-width: 95vw; max-height: 88vh; object-fit: contain; }
     .lightbox-close { position: absolute; top: 14px; right: 20px; border: 0; background: transparent; color: white; font-size: 2.5rem; cursor: pointer; }
-    footer { padding: 34px 20px 42px; text-align: center; color: rgba(255,255,255,.62); font-size: .78rem; background: #080808; }
+    footer { padding: 34px 20px 42px; text-align: center; color: var(--muted); font-size: .78rem; background: #e5f0e5; }
     footer p { margin: 7px 0; }
     .reveal { animation: rise .7s ease both; }
     @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
@@ -116,13 +120,23 @@
     <div class="password-card">
       <p class="eyebrow">A private invitation</p>
       <h1 id="passwordTitle">Amanda &amp; Andrew</h1>
-      <p>Enter the password to explore our wedding website.</p>
-      <form class="password-form" id="passwordForm">
-        <label for="sitePassword">Website password</label>
-        <input id="sitePassword" name="password" type="password" autocomplete="current-password" required aria-describedby="passwordError" autofocus>
-        <button class="cta-button" type="submit">Enter</button>
-      </form>
-      <p class="password-error" id="passwordError" role="alert" hidden>That password didn't match. Please try again.</p>
+      <div id="shoreQuestion">
+        <p>See you down the shore?</p>
+        <div class="password-form">
+          <button class="cta-button" id="shoreYes" type="button">Yes!</button>
+          <button class="cta-button" id="shoreNo" type="button">Not this time</button>
+        </div>
+        <p class="password-error" id="shoreNoMessage" hidden>We’ll miss you down the shore!</p>
+      </div>
+      <div id="passwordStep" hidden>
+        <p>We can’t wait to see you. Enter the password to explore our wedding website.</p>
+        <form class="password-form" id="passwordForm">
+          <label for="sitePassword">Website password</label>
+          <input id="sitePassword" name="password" type="password" autocomplete="current-password" required aria-describedby="passwordError" autofocus>
+          <button class="cta-button" type="submit">Enter</button>
+        </form>
+        <p class="password-error" id="passwordError" role="alert" hidden>That password didn't match. Please try again.</p>
+      </div>
     </div>
   </section>
   <div id="siteContent" hidden>
@@ -191,6 +205,12 @@
             <p>Spring Lake, New Jersey</p>
             <p>A boutique inn near Spring Lake’s shops, restaurants, and beach.</p>
             <a href="https://www.chateauinn.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>The Ridgewood House</h3>
+            <p>Sea Girt, New Jersey</p>
+            <p>A historic Jersey Shore stay just a short block from the beach.</p>
+            <a href="https://www.theridgewoodhousenj.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
           </article>
         </div>
       </div>
@@ -329,6 +349,16 @@
       const error = document.getElementById("passwordError");
       const gate = document.getElementById("passwordScreen");
       const content = document.getElementById("siteContent");
+      const passwordStep = document.getElementById("passwordStep");
+      document.getElementById("shoreYes").addEventListener("click", function () {
+        document.getElementById("shoreQuestion").hidden = true;
+        document.getElementById("shoreNoMessage").hidden = true;
+        passwordStep.hidden = false;
+        input.focus();
+      });
+      document.getElementById("shoreNo").addEventListener("click", function () {
+        document.getElementById("shoreNoMessage").hidden = false;
+      });
       form.addEventListener("submit", function (event) {
         event.preventDefault();
         if (input.value === "Hannon") {
