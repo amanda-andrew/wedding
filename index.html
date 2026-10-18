@@ -144,15 +144,13 @@
         <p class="password-error" id="shoreNoMessage" hidden>We’ll miss you down the shore!</p>
       </div>
       <div id="passwordStep" class="password-rsvp" hidden>
-        <h2>Kindly RSVP</h2>
-        <p class="intro">Let us know if we’ll see you down the shore.</p>
         <form class="form-grid" id="entryRsvpForm" action="https://formsubmit.co/ajax/aa.hannon.wedding@gmail.com" method="POST">
           <input type="hidden" name="_subject" value="New wedding RSVP — Amanda & Andrew">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_replyto" id="entryReplyTo">
           <div class="form-group"><label for="entryGuestName">Your name</label><input id="entryGuestName" name="name" autocomplete="name" required maxlength="120" placeholder="Full name"></div>
           <div class="form-group"><label for="entryGuestEmail">Your email</label><input id="entryGuestEmail" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></div>
-          <div class="form-group"><label for="entryAttendance">Will you be attending?</label><select id="entryAttendance" name="attendance" required><option value="">Please select</option><option value="yes">Joyfully accepts</option><option value="no">Regretfully declines</option></select></div>
+          <div class="form-group"><label for="entryAttendance">Will you be attending?</label><select id="entryAttendance" name="attendance" required><option value="">Select yes or no</option><option value="yes">Yes</option><option value="no">No</option></select></div>
           <div class="form-group"><label for="entryGuestCount">Number of guests in your party</label><input id="entryGuestCount" name="guests" type="number" min="1" max="10" value="1" required></div>
           <div class="form-group"><label for="entryRequests">Dietary needs or a note (optional)</label><textarea id="entryRequests" name="requests" rows="2" maxlength="1000" placeholder="Let us know how we can help"></textarea></div>
           <div class="form-group"><label for="sitePassword">Website password</label><input id="sitePassword" type="password" autocomplete="current-password" required aria-describedby="passwordError" placeholder="Enter password"></div>
@@ -407,6 +405,7 @@
           });
           const result = await response.json();
           if (!response.ok || result.success === false) throw new Error("RSVP submission failed");
+          localStorage.setItem("weddingSiteUnlocked", "yes");
           sessionStorage.setItem("weddingSiteUnlocked", "yes");
           gate.hidden = true;
           content.hidden = false;
@@ -418,7 +417,8 @@
           entrySubmit.disabled = false;
         }
       });
-      if (sessionStorage.getItem("weddingSiteUnlocked") === "yes") {
+      if (sessionStorage.getItem("weddingSiteUnlocked") === "yes" || localStorage.getItem("weddingSiteUnlocked") === "yes") {
+        localStorage.setItem("weddingSiteUnlocked", "yes");
         gate.hidden = true;
         content.hidden = false;
       }
