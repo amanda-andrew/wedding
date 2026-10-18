@@ -100,6 +100,13 @@
     .venue { margin-top: 10px; font: 400 1rem/1.5 var(--sans); letter-spacing: .12em; }
     .invitation { margin: 18px 0 0; font: 400 1rem/1.5 var(--sans); color: var(--muted); }
     .scroll-cue { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.72); text-decoration: none; font: 400 .9rem/1.5 var(--sans); letter-spacing: .1em; }
+    /* High-contrast, romantic typography for the photo hero after password entry. */
+    #siteContent .save-date::before { background: linear-gradient(180deg, rgba(5,10,8,.48), rgba(5,10,8,.62)); }
+    #siteContent .save-date .names { color: #fff !important; font-family: var(--script) !important; font-weight: 500; font-size: clamp(4.4rem, 12vw, 8.5rem); line-height: .95; letter-spacing: 0; text-shadow: 0 3px 18px rgba(0,0,0,.78), 0 1px 3px rgba(0,0,0,.95); }
+    #siteContent .save-date .eyebrow, #siteContent .save-date .date, #siteContent .save-date .venue, #siteContent .save-date .invitation, #siteContent .save-date .scroll-cue { color: #fff !important; text-shadow: 0 2px 12px rgba(0,0,0,.95), 0 1px 3px rgba(0,0,0,.9); }
+    #siteContent .save-date .invitation { font-family: var(--script) !important; font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.25; }
+    #siteContent .save-date .scroll-cue { font-family: var(--sans); }
+    #siteContent .save-date .eyebrow, #siteContent .save-date .date, #siteContent .save-date .venue { font-family: var(--sans); font-weight: 500; letter-spacing: .14em; }
     .navbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: clamp(18px, 4vw, 48px); padding: 18px 16px; background: rgba(251,226,235,.96); border-top: 1px solid #f1c6d5; border-bottom: 1px solid #e9a9c0; backdrop-filter: blur(14px); }
     .navbar a { text-decoration: none; text-transform: uppercase; font-size: .68rem; letter-spacing: .16em; color: var(--muted); transition: color .2s ease; }
     .navbar a:hover { color: var(--pink-deep); }
