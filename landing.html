@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanda & Andrew | Wedding</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4a5a5 0%, #c17a7a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-section h1 {
+            font-size: 2.5rem;
+            color: #c17a7a;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .login-section p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #d4a5a5;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #c17a7a;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #d4a5a5 0%, #c17a7a 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(193, 122, 122, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .photo-section {
+            display: none;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 0.8rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #c17a7a;
+            border: 2px solid white;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .logout-btn:hover {
+            background-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .login-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div class="login-section" id="loginSection">
+            <h1>Amanda & Andrew</h1>
+            <p>Enter the password to view our special moment</p>
+            <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+            <form id="passwordForm" onsubmit="checkPassword(event)">
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        id="passwordInput" 
+                        placeholder="Enter password" 
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+                <button type="submit" class="submit-btn">Enter</button>
+            </form>
+        </div>
+
+        <!-- Photo Section -->
+        <div class="photo-section" id="photoSection">
+            <img id="weddingPhoto" src="images/photo2.jpg" alt="Amanda & Andrew">
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Set your desired password here
+        const CORRECT_PASSWORD = "Hannon";
+
+        function checkPassword(event) {
+            event.preventDefault();
+            
+            const passwordInput = document.getElementById('passwordInput');
+            const enteredPassword = passwordInput.value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Password is correct
+                errorMessage.style.display = 'none';
+                sessionStorage.setItem('weddingAuthenticated', 'true');
+                showPhoto();
+            } else {
+                // Password is incorrect
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        function showPhoto() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('photoSection').style.display = 'flex';
+        }
+
+        function logout() {
+            sessionStorage.removeItem('weddingAuthenticated');
+            document.getElementById('loginSection').style.display = 'flex';
+            document.getElementById('photoSection').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+        }
+
+        // Check if user is already authenticated
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('weddingAuthenticated') === 'true') {
+                showPhoto();
+            }
+        });
+
+        // Focus on password input on load
+        document.getElementById('passwordInput').focus();
+    </script>
+</body>
+</html>
