@@ -8,42 +8,108 @@
   <title>Amanda &amp; Andrew | Wedding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: dark;
-      --ink: #080808;
-      --white: #fff;
-      --muted: rgba(255,255,255,.76);
-      --line: rgba(255,255,255,.2);
-      --glass: rgba(255,255,255,.055);
+      color-scheme: light;
+      --ink: #f8f8ef;
+      --white: #244b3c;
+      --muted: rgba(36,75,60,.78);
+      --line: rgba(36,75,60,.22);
+      --glass: rgba(255,255,255,.72);
+      --pink: #e98eae;
+      --pink-deep: #c94f80;
+      --green: #244b3c;
       --serif: "Cormorant Garamond", Georgia, serif;
+      --script: "Dancing Script", "Brush Script MT", cursive;
       --sans: Inter, Arial, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
     html { scroll-behavior: smooth; scroll-padding-top: 82px; }
     body { margin: 0; background: var(--ink); color: var(--white); font-family: var(--sans); line-height: 1.6; overflow-x: hidden; }
     a { color: inherit; }
     button, input, select, textarea { font: inherit; }
     button, a { -webkit-tap-highlight-color: transparent; }
     :focus-visible { outline: 2px solid white; outline-offset: 4px; }
-    .slideshow { position: fixed; inset: 0; z-index: -3; background: #101010; overflow: hidden; }
-    .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.04); animation: fade 24s infinite; }
-    .slide:first-child { background-image: url("hero2.png"); }
-    .slide:nth-child(2) { background-image: url("hero3.png"); animation-delay: 12s; }
-    .overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.55) 48%, #080808 100%); }
-    @keyframes fade { 0% { opacity: 0; transform: scale(1.06); } 8% { opacity: 1; } 42% { opacity: 1; transform: scale(1); } 50% { opacity: 0; } 100% { opacity: 0; } }
-    .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; }
-    .eyebrow { margin: 0 0 26px; font-size: .72rem; font-weight: 400; letter-spacing: .38em; text-transform: uppercase; }
-    .names { margin: 0; font: 300 clamp(4.5rem, 12vw, 9.5rem)/.82 var(--serif); letter-spacing: -.035em; }
+     .slideshow, .overlay { display: none; }
+         .password-screen { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 28px; position: relative; isolation: isolate; overflow: hidden; background: #090b0a url("manasquan-beach.jpg") center / cover no-repeat; }
+     .password-screen::before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(0,0,0,.72), rgba(0,0,0,.82)); }
+     .password-card { position: relative; z-index: 1; width: min(100%, 560px); min-height: clamp(300px, 48vh, 390px); display: flex; flex-direction: column; justify-content: center; padding: clamp(42px, 8vw, 78px) clamp(22px, 6vw, 54px); text-align: center; color: #24231f; background: linear-gradient(150deg, #fffefa 0%, #f8f5ee 56%, #eee8df 100%); border: 1px solid rgba(255,255,255,.92); box-shadow: 0 30px 52px rgba(0,0,0,.45), 0 5px 12px rgba(0,0,0,.3), inset 0 0 0 1px rgba(191,178,161,.14); transform-style: preserve-3d; perspective: 1200px; }
+     .password-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, transparent 49.65%, rgba(171,153,139,.48) 49.9%, rgba(255,255,255,.72) 50.15%, transparent 50.5%), linear-gradient(35deg, transparent 49.65%, rgba(171,153,139,.4) 49.9%, rgba(255,255,255,.65) 50.15%, transparent 50.5%); opacity: .8; }
+     .password-card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 52%; pointer-events: none; background: linear-gradient(150deg, #fffefa 0%, #f8f5ee 56%, #eee8df 100%); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transform: rotateX(0deg); transition: transform 1.05s cubic-bezier(.2,.75,.25,1); backface-visibility: visible; z-index: 2; filter: drop-shadow(0 7px 7px rgba(69,53,40,.22)); }
+     .password-card.is-opening::after { transform: rotateX(180deg) translateY(-8px); }
+     .password-card::before { transition: opacity .8s ease; }
+     .password-card.is-opening::before { opacity: .12; }
+     .password-card.is-opening { animation: envelope-lift 1.15s cubic-bezier(.2,.75,.25,1) both; box-shadow: 0 42px 70px rgba(0,0,0,.52), 0 8px 18px rgba(0,0,0,.32), inset 0 0 0 1px rgba(191,178,161,.14); }
+     @keyframes envelope-lift { 0% { transform: translateY(0) scale(1); } 28% { transform: translateY(-20px) scale(1.045) rotate(-1deg); } 62% { transform: translateY(-12px) scale(1.025) rotate(1deg); } 100% { transform: translateY(3px) scale(.99); } }
+     @media (prefers-reduced-motion: reduce) { .password-card.is-opening { animation-duration: .2s; } .password-card::after, .password-card::before { transition-duration: .2s; } }
+     .password-card > * { position: relative; z-index: 3; }
+     .password-card h1, .password-card .eyebrow { display: none; }
+     #shoreEnter { display: inline-block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: #25231f; cursor: pointer; font: italic 400 clamp(3.1rem, 8vw, 5.2rem)/1.08 "Bodoni Moda", "Cormorant Garamond", serif; letter-spacing: -.045em; text-shadow: 0 1px 0 rgba(255,255,255,.65); }
+     #passwordTitle { display: block; transform: rotate(-7deg); transform-origin: center; }
+     #shoreEnter:hover { opacity: .78; }
+     #shoreEnter:focus-visible { outline: 2px solid #8a7763; outline-offset: 10px; }
+     .welcome-date { display: block; margin-top: 28px; color: #756858; font: 400 clamp(.72rem, 2vw, .88rem)/1.5 var(--sans); letter-spacing: .22em; text-transform: uppercase; }
+     .tap-cue { display: block; margin-top: clamp(24px, 5vh, 38px); font: 500 .68rem/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; color: #66594b; text-shadow: none; }
+     .tap-arrow { display: inline-block; margin-left: 6px; font-size: 1.15rem; transition: transform .2s ease; }
+     #shoreEnter:hover .tap-arrow { transform: translateY(3px); }
+     #shoreQuestion .password-form { display: block; }
+     .password-entry-form { max-width: 360px; margin: 0 auto; }
+     .password-entry-form label { display: block; color: #fff; text-align: center; }
+     .password-entry-form input { margin: 10px 0 18px; text-align: center; }
+     .password-entry-form .cta-button { width: 100%; }
+     #shoreQuestion .cta-button { min-height: auto; padding: 8px 3px 10px; border: 0; border-bottom: 1px solid rgba(255,255,255,.85); border-radius: 0; background: transparent; color: #fff; font: 500 1rem/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; box-shadow: none; }
+     #shoreQuestion .cta-button:hover { color: #fff; background: transparent; border-bottom-color: #fff; opacity: .72; }
+     #shoreNoMessage { margin-top: 28px !important; color: #fff !important; font: 500 clamp(1.8rem, 4vw, 2.8rem)/1.2 var(--script) !important; text-shadow: 0 2px 16px rgba(0,0,0,.3); }
+.names { font-family: var(--script); font-weight: 500; font-size: clamp(4.2rem, 11vw, 8rem); letter-spacing: 0; line-height: .95; }
+    .section-title, .favorite-category-title, .detail-card h3, .accommodation-card h3 { font-family: var(--script); font-weight: 500; }
+    .section-title { font-size: clamp(3rem, 7vw, 5rem); }
+    .password-rsvp { margin-top: 22px; text-align: left; }
+    .password-rsvp h2 { margin: 0 0 8px; text-align: center; font: 500 clamp(2.4rem, 7vw, 3.4rem)/1.1 var(--script); color: var(--pink-deep); }
+    .password-rsvp .intro { text-align: center; margin-bottom: 20px; }
+    .password-rsvp .form-grid { display: grid; gap: 12px; }
+    .password-rsvp .form-group label { display: block; margin-bottom: 5px; font-size: .76rem; letter-spacing: .03em; }
+    .password-rsvp .form-group input, .password-rsvp .form-group select, .password-rsvp .form-group textarea { display: block; width: 100%; min-height: 44px; padding: 10px 12px; color: var(--green); background: #fff; border: 1px solid #d7a0b4; border-radius: 6px; }
+    .password-rsvp .form-group textarea { resize: vertical; }
+    .password-rsvp .password-error { color: #a82e5a !important; }
+    .password-card p { color: var(--muted); margin: 0 0 24px; }
+    .password-form { display: grid; gap: 14px; }
+    .password-form label { text-align: left; font-size: .78rem; letter-spacing: .08em; }
+    .password-form input { width: 100%; min-height: 48px; padding: 12px 14px; color: var(--green); background: #fff; border: 1px solid #d7a0b4; border-radius: 6px; }
+    .password-error { color: #ffd1d1 !important; font-size: .85rem; margin: 12px 0 0 !important; }
+    .accommodation-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .accommodation-card { padding: 26px; background: var(--glass); border: 1px solid #e9b0c4; border-radius: 12px; box-shadow: 0 8px 25px rgba(36,75,60,.06); }
+    .accommodation-card h3 { margin: 0 0 8px; font: 400 1.8rem/1.1 var(--serif); }
+    .accommodation-card p { margin: 8px 0; color: var(--muted); font-size: .88rem; }
+    .accommodation-card a { display: inline-block; margin-top: 10px; text-underline-offset: 4px; font-size: .8rem; }
+    .favorite-category { margin-top: 52px; }
+    .favorite-category:first-of-type { margin-top: 0; }
+    .favorite-category-title { margin: 0 0 20px; font: 300 clamp(2rem, 4vw, 2.8rem)/1 var(--serif); text-align: center; }
+    .favorite-tagline { color: var(--white) !important; font: italic 1.15rem/1.55 var(--serif) !important; }
+    .save-date { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 22px 58px; position: relative; color: #fff; background: #18241f url("hero2.png") center / cover no-repeat; isolation: isolate; }
+    .save-date::before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(8,18,14,.22), rgba(8,18,14,.42)); }
+    .save-date > * { position: relative; z-index: 1; }
+    .save-date .eyebrow, .save-date .date, .save-date .venue, .save-date .invitation { color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.35); }
+    .save-date .eyebrow, .save-date .date, .save-date .venue, .save-date .invitation { color: var(--green); }
+    .save-date .scroll-cue { color: var(--pink-deep); }
+    .eyebrow { margin: 24px 0 0; font: 400 1rem/1.5 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+    .names { margin: 0; font: 300 clamp(3.8rem, 9vw, 7rem)/.9 var(--serif); letter-spacing: -.025em; }
     .names span { display: block; }
-    .date { margin-top: 38px; font-size: clamp(.82rem, 2vw, 1.08rem); letter-spacing: .24em; }
-    .venue { margin-top: 12px; font-size: .72rem; letter-spacing: .24em; }
-    .invitation { margin: 22px 0 0; font: italic 1.45rem var(--serif); color: var(--muted); }
-    .scroll-cue { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.72); text-decoration: none; font-size: .64rem; letter-spacing: .24em; }
-    .navbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: clamp(18px, 4vw, 48px); padding: 18px 16px; background: rgba(8,8,8,.84); border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.1); backdrop-filter: blur(14px); }
+    .date { margin-top: 22px; font: 400 1rem/1.5 var(--sans); letter-spacing: .12em; }
+    .venue { margin-top: 10px; font: 400 1rem/1.5 var(--sans); letter-spacing: .12em; }
+    .invitation { margin: 18px 0 0; font: 400 1rem/1.5 var(--sans); color: var(--muted); }
+    .scroll-cue { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.72); text-decoration: none; font: 400 .9rem/1.5 var(--sans); letter-spacing: .1em; }
+    /* High-contrast, romantic typography for the photo hero after password entry. */
+    #siteContent .save-date::before { background: linear-gradient(180deg, rgba(5,10,8,.48), rgba(5,10,8,.62)); }
+    #siteContent .save-date .names { color: #fff !important; font-family: var(--script) !important; font-weight: 500; font-size: clamp(4.4rem, 12vw, 8.5rem); line-height: .95; letter-spacing: 0; text-shadow: 0 3px 18px rgba(0,0,0,.78), 0 1px 3px rgba(0,0,0,.95); }
+    #siteContent .save-date .eyebrow, #siteContent .save-date .date, #siteContent .save-date .venue, #siteContent .save-date .invitation, #siteContent .save-date .scroll-cue { color: #fff !important; text-shadow: 0 2px 12px rgba(0,0,0,.95), 0 1px 3px rgba(0,0,0,.9); }
+    #siteContent .save-date .invitation { font-family: var(--script) !important; font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.25; }
+    #siteContent .save-date .scroll-cue { font-family: var(--sans); }
+    #siteContent .save-date .eyebrow, #siteContent .save-date .date, #siteContent .save-date .venue { font-family: var(--sans); font-weight: 500; letter-spacing: .14em; }
+    .navbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: center; gap: clamp(18px, 4vw, 48px); padding: 18px 16px; background: rgba(251,226,235,.96); border-top: 1px solid #f1c6d5; border-bottom: 1px solid #e9a9c0; backdrop-filter: blur(14px); }
     .navbar a { text-decoration: none; text-transform: uppercase; font-size: .68rem; letter-spacing: .16em; color: var(--muted); transition: color .2s ease; }
-    .navbar a:hover { color: var(--white); }
+    .navbar a:hover { color: var(--pink-deep); }
     main { position: relative; }
     .section { padding: clamp(76px, 10vw, 130px) 22px; }
     .section-inner { width: min(100%, 1000px); margin: 0 auto; }
@@ -51,43 +117,42 @@
     .story { max-width: 720px; margin: 0 auto; text-align: center; color: var(--muted); font: 1.15rem/1.9 var(--serif); }
     .story p { margin: 0 0 20px; }
     .details-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-    .detail-card { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 22px; text-align: center; background: var(--glass); border: 1px solid var(--line); border-radius: 5px; backdrop-filter: blur(10px); }
+    .detail-card { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 22px; text-align: center; background: var(--glass); border: 1px solid #e9b0c4; border-radius: 12px; box-shadow: 0 8px 25px rgba(36,75,60,.06); }
     .detail-card h3 { margin: 0 0 10px; font: 400 1.9rem var(--serif); }
     .detail-card p { margin: 0; color: var(--muted); font-size: .9rem; }
     .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
     .gallery-item { display: block; width: 100%; padding: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); background: #171717; cursor: zoom-in; }
     .gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
     .gallery-item:hover img { transform: scale(1.035); }
-    .rsvp-container { max-width: 560px; margin: 0 auto; padding: clamp(28px, 5vw, 48px); background: rgba(0,0,0,.38); border: 1px solid var(--line); border-radius: 5px; backdrop-filter: blur(14px); }
+    .rsvp-container { max-width: 560px; margin: 0 auto; padding: clamp(28px, 5vw, 48px); background: #fbe2eb; border: 1px solid #e9b0c4; border-radius: 12px; }
     .rsvp-container .section-title { margin-bottom: 10px; }
     .rsvp-subtitle { margin: 0 0 30px; text-align: center; color: var(--muted); }
     .form-grid { display: grid; gap: 16px; }
     .form-group label { display: block; margin-bottom: 7px; font-size: .78rem; letter-spacing: .06em; }
-    .form-group input, .form-group select, .form-group textarea { display: block; width: 100%; min-height: 48px; padding: 12px 14px; color: white; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.22); border-radius: 3px; }
+    .form-group input, .form-group select, .form-group textarea { display: block; width: 100%; min-height: 48px; padding: 12px 14px; color: var(--green); background: #fff; border: 1px solid #d7a0b4; border-radius: 6px; }
     .form-group select option { color: #111; }
     .form-group textarea { resize: vertical; }
-    .cta-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 24px; border: 1px solid white; background: white; color: #080808; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; cursor: pointer; transition: background .2s, color .2s; }
-    .cta-button:hover { color: white; background: transparent; }
+    .cta-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 24px; border: 1px solid var(--pink-deep); border-radius: 6px; background: var(--pink); color: #173e30; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 600; cursor: pointer; transition: background .2s, color .2s; }
+    .cta-button:hover { color: #fff; background: var(--pink-deep); }
     .rsvp-form .cta-button { width: 100%; }
-    .form-note { margin: 14px 0 0; color: rgba(255,255,255,.65); font-size: .75rem; text-align: center; }
+    .form-note { margin: 14px 0 0; color: var(--muted); font-size: .75rem; text-align: center; }
     .form-status { margin: 16px 0 0; padding: 12px; border: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
     .lightbox { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0,0,0,.94); }
     .lightbox[open] { display: flex; }
     .lightbox img { display: block; max-width: 95vw; max-height: 88vh; object-fit: contain; }
     .lightbox-close { position: absolute; top: 14px; right: 20px; border: 0; background: transparent; color: white; font-size: 2.5rem; cursor: pointer; }
-    footer { padding: 34px 20px 42px; text-align: center; color: rgba(255,255,255,.62); font-size: .78rem; background: #080808; }
+    footer { padding: 34px 20px 42px; text-align: center; color: var(--muted); font-size: .78rem; background: #e5f0e5; }
     footer p { margin: 7px 0; }
     .reveal { animation: rise .7s ease both; }
     @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 620px) {
       .save-date { min-height: 92svh; padding-bottom: 70px; }
-      .eyebrow { letter-spacing: .28em; }
-      .date { letter-spacing: .15em; }
-      .venue { letter-spacing: .14em; }
+      .eyebrow { letter-spacing: .1em; }
+      .date, .venue { letter-spacing: .08em; }
       .navbar { gap: 0; justify-content: space-around; padding: 15px 8px; }
       .navbar a { font-size: .59rem; letter-spacing: .08em; }
       .section { padding: 76px 18px; }
-      .details-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .details-grid, .gallery-grid, .accommodation-list { grid-template-columns: 1fr; }
       .detail-card { min-height: 145px; }
       .gallery-item { aspect-ratio: 4 / 3; }
       .rsvp-container { padding: 28px 20px; }
@@ -98,55 +163,182 @@
   </style>
 </head>
 <body>
-  <div class="slideshow" aria-hidden="true"><div class="slide"></div><div class="slide"></div></div>
+  <section class="password-screen" id="passwordScreen" aria-labelledby="passwordTitle">
+    <div class="password-card">
+      <div id="shoreQuestion">
+        <button id="shoreEnter" type="button" aria-controls="passwordStep" aria-labelledby="passwordTitle"><span id="passwordTitle">See you down the shore?</span><span class="welcome-date">SEPTEMBER 25, 2027</span><span class="tap-cue">TAP TO ENTER <span class="tap-arrow" aria-hidden="true">↓</span></span></button>
+      </div>
+      <div id="passwordStep" class="password-rsvp" hidden>
+        <form class="password-form password-entry-form" id="entryPasswordForm">
+          <label for="sitePassword">Website password</label>
+          <input id="sitePassword" type="password" autocomplete="current-password" required aria-describedby="passwordError" placeholder="Enter password">
+          <button class="cta-button" id="entryContinue" type="submit">Enter</button>
+          <p class="password-error" id="passwordError" role="alert" hidden>That password didn't match. Please try again.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <div id="siteContent" hidden>
+  <div class="slideshow" aria-hidden="true"></div>
   <div class="overlay" aria-hidden="true"></div>
 
   <header class="save-date" id="home">
-    <p class="eyebrow">Save the date</p>
     <h1 class="names"><span>Amanda</span><span>&amp; Andrew</span></h1>
+    <p class="eyebrow">Save the date</p>
     <p class="date">SEPTEMBER 25, 2027</p>
     <p class="venue">SPRING LAKE GOLF CLUB</p>
     <p class="invitation">Come celebrate with us</p>
-    <a class="scroll-cue" href="#story">DISCOVER MORE ↓</a>
+    <a class="scroll-cue" href="#details">SCROLL TO EXPLORE ↓</a>
   </header>
 
   <nav class="navbar" aria-label="Main navigation">
-    <a href="#story">Our Story</a>
     <a href="#details">Details</a>
+    <a href="#accommodations">Stay</a>
+    <a href="#favorites">Our Favorites</a>
     <a href="#gallery">Gallery</a>
     <a href="#rsvp">RSVP</a>
   </nav>
 
   <main>
-    <section class="section" id="story">
-      <div class="section-inner">
-        <h2 class="section-title">Our Story</h2>
-        <div class="story">
-          <p>Every great story is made up of little moments, shared adventures, and the people who make life extraordinary.</p>
-          <p>We're so excited to celebrate this next chapter with the family and friends who mean the most to us.</p>
-          <p>More of our story coming soon. For now, save the date — we can't wait to see you.</p>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="details">
       <div class="section-inner">
         <h2 class="section-title">The Details</h2>
         <div class="details-grid">
           <article class="detail-card"><h3>The Date</h3><p>Saturday, September 25, 2027</p></article>
-          <article class="detail-card"><h3>The Venue</h3><p>Spring Lake Golf Club</p></article>
-          <article class="detail-card"><h3>Ceremony &amp; Reception</h3><p>Timing and details coming soon</p></article>
-          <article class="detail-card"><h3>Dress Code</h3><p>Details coming soon</p></article>
+          <article class="detail-card"><h3>Dress Code</h3><p>Black Tie Optional</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="accommodations">
+      <div class="section-inner">
+        <h2 class="section-title">Where to Stay</h2>
+        <p class="story" style="margin-bottom: 34px;">September is still a sought-after time at the Shore, and accommodations can book up quickly. We recommend reserving your stay as early as possible.</p>
+        <div class="accommodation-list">
+          <article class="accommodation-card">
+            <h3>Ocean House</h3>
+            <p>Spring Lake, New Jersey</p>
+            <p>We’ll share the wedding room-block code here as soon as it’s available.</p>
+            <a href="https://www.theoceanhouse.net/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>Breakers Hotel</h3>
+            <p>Spring Lake, New Jersey</p>
+            <p>A beachfront stay along the Spring Lake shore.</p>
+            <a href="https://breakershotel.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>The Hewitt Wellington</h3>
+            <p>Spring Lake, New Jersey</p>
+            <p>A historic hotel beside Spring Lake.</p>
+            <a href="https://www.thehewittwellington.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>Spring Lake Inn</h3>
+            <p>Spring Lake, New Jersey</p>
+            <p>A charming inn with individually styled guest rooms and suites.</p>
+            <a href="https://www.springlakeinn.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>Chateau Inn</h3>
+            <p>Spring Lake, New Jersey</p>
+            <p>A boutique inn near Spring Lake’s shops, restaurants, and beach.</p>
+            <a href="https://www.chateauinn.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+          <article class="accommodation-card">
+            <h3>The Ridgewood House</h3>
+            <p>Sea Girt, New Jersey</p>
+            <p>A historic Jersey Shore stay just a short block from the beach.</p>
+            <a href="https://www.theridgewoodhousenj.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="favorites">
+      <div class="section-inner">
+        <h2 class="section-title">Andrew &amp; Amanda’s Shore Favorites</h2>
+        <p class="story" style="margin-bottom: 48px;">Our go-to spots along the shore, from first coffee to one last scoop. This list may grow, so check back for more of our favorites.</p>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">Coffee</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Seawatch Coffee &amp; Market</h3>
+              <p class="favorite-tagline">Gotta hang 10. ☕🌊</p>
+              <a href="https://seawatchcoffeemarket.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Noon — Spring Lake</h3>
+              <p class="favorite-tagline">Coffee in hand, shopping bags at the ready.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">Breakfast</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Tom Bailey’s Market</h3>
+              <p class="favorite-tagline">Weekend mini donuts are a must — and you can’t leave the Shore without trying a Taylor ham, egg &amp; cheese.</p>
+              <a href="https://tombaileysmarket.com/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Nick &amp; Sons Bakery</h3>
+              <p class="favorite-tagline">Set that alarm: the cardamom buns wait for no one.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">Restaurants &amp; Nightlife</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Marina Bar &amp; Grille</h3>
+              <p class="favorite-tagline">Catering to Andrew’s TV ADHD with a beautiful view.</p>
+            </article>
+            <article class="accommodation-card">
+              <h3>Parker House</h3>
+              <p class="favorite-tagline">Grab a quick bite on the porch — or try to keep up with Amanda’s dance moves in God’s Basement.</p>
+            </article>
+            <article class="accommodation-card">
+              <h3>Leggetts</h3>
+              <p class="favorite-tagline">Roll in straight from the beach for pizza, and don’t forget to say hi to Marty.</p>
+              <a href="https://www.leggetts.us/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Columns</h3>
+              <p class="favorite-tagline">The beach, live music, and seafood? Tell me less!</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="favorite-category">
+          <h3 class="favorite-category-title">The Sweet Tooth</h3>
+          <div class="accommodation-list">
+            <article class="accommodation-card">
+              <h3>Hoffman’s Ice Cream</h3>
+              <p class="favorite-tagline">Amanda’s must-order: toasted coconut. Trust her on this one.</p>
+              <a href="https://hoffmansicecreamnj.net/" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+            <article class="accommodation-card">
+              <h3>Surfside Frozen Custard</h3>
+              <p class="favorite-tagline">Not into all the wild flavors? Surfside sticks to the classics — and nails them.</p>
+              <a href="https://www.surfsidefrozencustard.com/welcome" target="_blank" rel="noopener noreferrer">Visit website ↗</a>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="gallery">
       <div class="section-inner">
-        <h2 class="section-title">Moments</h2>
+        <h2 class="section-title">Private Gallery</h2>
         <div class="gallery-grid">
           <button class="gallery-item" type="button" data-image="hero2.png" aria-label="Enlarge wedding photo one"><img src="hero2.png" alt="Amanda and Andrew, photo one" loading="lazy"></button>
           <button class="gallery-item" type="button" data-image="hero3.png" aria-label="Enlarge wedding photo two"><img src="hero3.png" alt="Amanda and Andrew, photo two" loading="lazy"></button>
+          <button class="gallery-item" type="button" data-image="548EE1E3-60B1-4EA0-A9B0-B6BE3F9D5B68.jpeg" aria-label="Enlarge additional wedding photo one"><img src="548EE1E3-60B1-4EA0-A9B0-B6BE3F9D5B68.jpeg" alt="Additional wedding photo one" loading="lazy"></button>
+          <button class="gallery-item" type="button" data-image="88592592-EA80-49F8-9867-027A001328ED.jpeg" aria-label="Enlarge additional wedding photo two"><img src="88592592-EA80-49F8-9867-027A001328ED.jpeg" alt="Additional wedding photo two" loading="lazy"></button>
         </div>
       </div>
     </section>
@@ -156,7 +348,10 @@
         <div class="rsvp-container">
           <h2 class="section-title">RSVP</h2>
           <p class="rsvp-subtitle">We'd love to have you celebrate with us.</p>
-          <form class="rsvp-form" id="rsvpForm">
+          <form class="rsvp-form" id="rsvpForm" action="https://formsubmit.co/ajax/aa.hannon.wedding@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New wedding RSVP — Amanda & Andrew">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_replyto" id="rsvpReplyTo">
             <div class="form-grid">
               <div class="form-group"><label for="guestName">Your name</label><input id="guestName" name="name" autocomplete="name" required maxlength="120" placeholder="Full name"></div>
               <div class="form-group"><label for="guestEmail">Your email</label><input id="guestEmail" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></div>
@@ -165,7 +360,7 @@
               <div class="form-group"><label for="requests">Dietary needs or a note (optional)</label><textarea id="requests" name="requests" rows="3" maxlength="1000" placeholder="Let us know how we can help"></textarea></div>
               <button class="cta-button" type="submit">Submit RSVP</button>
             </div>
-            <p class="form-note">Please note: online RSVP submissions are not connected yet. Submitting this form will not send or save your response.</p>
+            <p class="form-note">Your RSVP will be sent over HTTPS through our form service and emailed to us. Please don’t include sensitive information in the note field.</p>
             <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
           </form>
         </div>
@@ -183,6 +378,54 @@
     <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close photo">×</button>
     <img id="lightboxImage" alt="Expanded photo of Amanda and Andrew">
   </dialog>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      const entryForm = document.getElementById("entryPasswordForm");
+      const input = document.getElementById("sitePassword");
+      const error = document.getElementById("passwordError");
+      const gate = document.getElementById("passwordScreen");
+      const content = document.getElementById("siteContent");
+      const passwordStep = document.getElementById("passwordStep");
+      document.getElementById("shoreEnter").addEventListener("click", function () {
+        const envelope = document.querySelector(".password-card");
+        const question = document.getElementById("shoreQuestion");
+        const enterButton = document.getElementById("shoreEnter");
+        enterButton.disabled = true;
+        envelope.classList.add("is-opening");
+        window.setTimeout(function () {
+          question.hidden = true;
+          passwordStep.hidden = false;
+          envelope.classList.remove("is-opening");
+          enterButton.disabled = false;
+          input.focus();
+        }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 350 : 1250);
+      });
+      entryForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (input.value !== "Hannon") {
+          error.hidden = false;
+          input.value = "";
+          input.focus();
+          return;
+        }
+        error.hidden = true;
+        localStorage.setItem("weddingSiteUnlocked", "yes");
+        sessionStorage.setItem("weddingSiteUnlocked", "yes");
+        gate.hidden = true;
+        content.hidden = false;
+        document.getElementById("home").setAttribute("tabindex", "-1");
+        document.getElementById("home").focus({ preventScroll: true });
+      });
+      if (sessionStorage.getItem("weddingSiteUnlocked") === "yes" || localStorage.getItem("weddingSiteUnlocked") === "yes") {
+        localStorage.setItem("weddingSiteUnlocked", "yes");
+        gate.hidden = true;
+        content.hidden = false;
+      }
+    })();
+  </script>
 
   <script>
     (function () {
@@ -191,14 +434,33 @@
       // Keep the footer year current without changing the wedding date.
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // The RSVP form is intentionally honest until a real submission service is configured.
+      // Send RSVP responses through FormSubmit; the endpoint emails the submission to the couple.
       const rsvpForm = document.getElementById("rsvpForm");
       const formStatus = document.getElementById("formStatus");
-      rsvpForm.addEventListener("submit", function (event) {
+      const submitButton = rsvpForm.querySelector('button[type="submit"]');
+      rsvpForm.addEventListener("submit", async function (event) {
         event.preventDefault();
         if (!rsvpForm.reportValidity()) return;
+        document.getElementById("rsvpReplyTo").value = document.getElementById("guestEmail").value.trim();
         formStatus.hidden = false;
-        formStatus.textContent = "Thanks, " + document.getElementById("guestName").value.trim() + ". This website is not connected to an RSVP service yet, so your response has not been sent. Please contact Amanda and Andrew directly to confirm.";
+        formStatus.textContent = "Sending your RSVP…";
+        submitButton.disabled = true;
+        try {
+          const response = await fetch(rsvpForm.action, {
+            method: "POST",
+            body: new FormData(rsvpForm),
+            headers: { "Accept": "application/json" }
+          });
+          const result = await response.json();
+          if (!response.ok || result.success === false) throw new Error("RSVP submission failed");
+          formStatus.textContent = "Thank you, " + document.getElementById("guestName").value.trim() + "! Your RSVP has been submitted. We’ll be in touch if we have any questions.";
+          rsvpForm.reset();
+          document.getElementById("guestCount").value = "1";
+        } catch (error) {
+          formStatus.textContent = "Sorry, we couldn’t confirm that your RSVP was sent. Please try again in a moment or contact Amanda and Andrew directly.";
+        } finally {
+          submitButton.disabled = false;
+        }
       });
 
       // Accessible photo lightbox with Escape and backdrop close support.
