@@ -120,6 +120,21 @@
     .detail-card { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 22px; text-align: center; background: var(--glass); border: 1px solid #e9b0c4; border-radius: 12px; box-shadow: 0 8px 25px rgba(36,75,60,.06); }
     .detail-card h3 { margin: 0 0 10px; font: 400 1.9rem var(--serif); }
     .detail-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .gallery-choices { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
+    .gallery-choice { position: relative; display: flex; min-height: 280px; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 8px; padding: 30px; overflow: hidden; border: 1px solid #e9b0c4; border-radius: 10px; text-align: left; color: #fff; background: #244b3c; cursor: pointer; isolation: isolate; }
+    .gallery-choice::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(9,20,15,.08), rgba(9,20,15,.78)); transition: opacity .25s ease; }
+    .gallery-choice:hover::before { opacity: .78; }
+    .gallery-choice.our-photos { background: #244b3c url("hero2.png") center / cover no-repeat; }
+    .gallery-choice.wedding-party { background: linear-gradient(135deg, #244b3c, #537461 58%, #d8b9a5); }
+    .gallery-choice-kicker { font: 500 .68rem/1.4 var(--sans); letter-spacing: .18em; text-transform: uppercase; }
+    .gallery-choice-title { font: 400 clamp(2rem, 4vw, 3rem)/1.05 var(--serif); }
+    .gallery-choice-description { max-width: 32ch; font-size: .85rem; color: rgba(255,255,255,.9); }
+    .gallery-view-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+    .gallery-view-heading .section-title { margin: 0; text-align: left; }
+    .gallery-back { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 5px; padding: 10px 14px; background: transparent; color: var(--green); cursor: pointer; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+    .gallery-empty { padding: 48px 24px; border: 1px solid #e9b0c4; background: var(--glass); text-align: center; }
+    .gallery-empty h3 { margin: 0 0 10px; font: 400 2rem/1.1 var(--serif); }
+    .gallery-empty p { max-width: 48ch; margin: 0 auto; color: var(--muted); }
     .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
     .gallery-item { display: block; width: 100%; padding: 0; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); background: #171717; cursor: zoom-in; }
     .gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s ease; }
@@ -333,12 +348,42 @@
 
     <section class="section" id="gallery">
       <div class="section-inner">
-        <h2 class="section-title">Private Gallery</h2>
-        <div class="gallery-grid">
-          <button class="gallery-item" type="button" data-image="hero2.png" aria-label="Enlarge wedding photo one"><img src="hero2.png" alt="Amanda and Andrew, photo one" loading="lazy"></button>
-          <button class="gallery-item" type="button" data-image="hero3.png" aria-label="Enlarge wedding photo two"><img src="hero3.png" alt="Amanda and Andrew, photo two" loading="lazy"></button>
-          <button class="gallery-item" type="button" data-image="548EE1E3-60B1-4EA0-A9B0-B6BE3F9D5B68.jpeg" aria-label="Enlarge additional wedding photo one"><img src="548EE1E3-60B1-4EA0-A9B0-B6BE3F9D5B68.jpeg" alt="Additional wedding photo one" loading="lazy"></button>
-          <button class="gallery-item" type="button" data-image="88592592-EA80-49F8-9867-027A001328ED.jpeg" aria-label="Enlarge additional wedding photo two"><img src="88592592-EA80-49F8-9867-027A001328ED.jpeg" alt="Additional wedding photo two" loading="lazy"></button>
+        <div id="galleryIndex">
+          <h2 class="section-title">Photo Galleries</h2>
+          <div class="gallery-choices">
+            <button class="gallery-choice our-photos" type="button" data-gallery-open="coupleGallery" aria-controls="coupleGallery">
+              <span class="gallery-choice-kicker">A little look at us</span>
+              <span class="gallery-choice-title">Our Photos</span>
+              <span class="gallery-choice-description">A few favorite photos of Amanda &amp; Andrew. Click to view the gallery.</span>
+            </button>
+            <button class="gallery-choice wedding-party" type="button" data-gallery-open="partyGallery" aria-controls="partyGallery">
+              <span class="gallery-choice-kicker">The people by our side</span>
+              <span class="gallery-choice-title">The Wedding Party</span>
+              <span class="gallery-choice-description">A gallery dedicated to our wedding party. Click to explore.</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="coupleGallery" data-gallery-view hidden>
+          <div class="gallery-view-heading">
+            <h2 class="section-title">Our Photos</h2>
+            <button class="gallery-back" type="button" data-gallery-back>← All galleries</button>
+          </div>
+          <div class="gallery-grid">
+            <button class="gallery-item" type="button" data-image="hero2.png" aria-label="Enlarge Amanda and Andrew photo one"><img src="hero2.png" alt="Amanda and Andrew, photo one" loading="lazy"></button>
+            <button class="gallery-item" type="button" data-image="hero3.png" aria-label="Enlarge Amanda and Andrew photo two"><img src="hero3.png" alt="Amanda and Andrew, photo two" loading="lazy"></button>
+          </div>
+        </div>
+
+        <div id="partyGallery" data-gallery-view hidden>
+          <div class="gallery-view-heading">
+            <h2 class="section-title">The Wedding Party</h2>
+            <button class="gallery-back" type="button" data-gallery-back>← All galleries</button>
+          </div>
+          <div class="gallery-empty">
+            <h3>Our favorite people</h3>
+            <p>Wedding party photos will live here. We’ll add them as soon as the photos are ready.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -461,6 +506,24 @@
         } finally {
           submitButton.disabled = false;
         }
+      });
+
+      // Let visitors open either photo gallery and return to the gallery index.
+      const galleryIndex = document.getElementById("galleryIndex");
+      const galleryViews = document.querySelectorAll("[data-gallery-view]");
+      document.querySelectorAll("[data-gallery-open]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          galleryIndex.hidden = true;
+          galleryViews.forEach(function (view) { view.hidden = view.id !== button.dataset.galleryOpen; });
+          document.getElementById(button.dataset.galleryOpen).scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+      document.querySelectorAll("[data-gallery-back]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          galleryViews.forEach(function (view) { view.hidden = true; });
+          galleryIndex.hidden = false;
+          document.getElementById("gallery").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       });
 
       // Accessible photo lightbox with Escape and backdrop close support.
