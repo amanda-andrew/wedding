@@ -38,7 +38,11 @@
      .password-card { position: relative; z-index: 1; width: 100%; max-width: none; padding: clamp(20px, 5vw, 48px); text-align: center; color: #fff; background: transparent; border: 0; border-radius: 0; box-shadow: none; backdrop-filter: none; }
      .password-card h1, .password-card .eyebrow { display: none; }
      #shoreEnter { display: inline-block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent; color: #fff; cursor: pointer; font: 500 clamp(4rem, 12vw, 9rem)/.95 var(--script); letter-spacing: -.02em; text-shadow: 0 3px 24px rgba(0,0,0,.3); }
-     #shoreEnter:hover { opacity: .82; }\n     #shoreEnter:focus-visible { outline: 2px solid #fff; outline-offset: 12px; }\n     .tap-cue { display: block; margin-top: clamp(24px, 5vh, 42px); font: 500 .78rem/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,.45); }\n     .tap-arrow { display: inline-block; margin-left: 6px; font-size: 1.15rem; transition: transform .2s ease; }\n     #shoreEnter:hover .tap-arrow { transform: translateY(3px); }
+     #shoreEnter:hover { opacity: .82; }
+     #shoreEnter:focus-visible { outline: 2px solid #fff; outline-offset: 12px; }
+     .tap-cue { display: block; margin-top: clamp(24px, 5vh, 42px); font: 500 .78rem/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
+     .tap-arrow { display: inline-block; margin-left: 6px; font-size: 1.15rem; transition: transform .2s ease; }
+     #shoreEnter:hover .tap-arrow { transform: translateY(3px); }
      #shoreQuestion .password-form { display: block; }
      .password-entry-form { max-width: 360px; margin: 0 auto; }
      .password-entry-form label { display: block; color: #fff; text-align: center; }
@@ -141,7 +145,7 @@
   <section class="password-screen" id="passwordScreen" aria-labelledby="passwordTitle">
     <div class="password-card">
       <div id="shoreQuestion">
-        <button id="shoreEnter" type="button" aria-controls="passwordStep" aria-labelledby="passwordTitle"><span id="passwordTitle">See you down the shore?</span><span class="tap-cue" aria-hidden="true">TAP TO ENTER <span class="tap-arrow">↓</span></span></button>See you down the shore?</button>
+        <button id="shoreEnter" type="button" aria-controls="passwordStep" aria-labelledby="passwordTitle"><span id="passwordTitle">See you down the shore?</span><span class="tap-cue">TAP TO ENTER <span class="tap-arrow" aria-hidden="true">↓</span></span></button>
       </div>
       <div id="passwordStep" class="password-rsvp" hidden>
         <form class="password-form password-entry-form" id="entryPasswordForm">
