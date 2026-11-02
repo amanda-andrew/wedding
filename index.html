@@ -443,7 +443,7 @@
         window.setTimeout(function () {
           question.hidden = true;
           passwordStep.hidden = false;
-          envelope.classList.remove("is-opening");
+          // Keep the envelope in its open state while the password prompt is visible.
           enterButton.disabled = false;
           input.focus();
         }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 350 : 1250);
