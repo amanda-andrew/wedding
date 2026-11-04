@@ -210,9 +210,9 @@
     #siteContent .favorite-category-title { color: var(--hot-pink); }
 
 
-    /* Formal calligraphy for the opening welcome, inspired by the supplied font reference. */
-    #shoreEnter { font-family: "Allura", cursive; font-style: normal; font-weight: 700; font-size: clamp(3.8rem, 9vw, 6rem); letter-spacing: 0; text-shadow: 0 1px 0 rgba(255,255,255,.65), 0 0 1px currentColor; }
-    #siteContent .save-date .names { font-family: "Allura", cursive !important; font-weight: 700; font-size: clamp(5rem, 14vw, 10rem); letter-spacing: 0; -webkit-text-stroke: .35px currentColor; }
+    /* Elegant, light calligraphy for the envelope and couple's names. */
+    #shoreEnter { font-family: "Allura", cursive; font-style: normal; font-weight: 400; font-size: clamp(3.8rem, 9vw, 6rem); letter-spacing: 0; text-shadow: 0 1px 0 rgba(255,255,255,.65); }
+    #siteContent .save-date .names { font-family: "Allura", cursive !important; font-weight: 400; font-size: clamp(5rem, 14vw, 10rem); letter-spacing: 0; -webkit-text-stroke: 0; }
     /* Give page and subsection titles a little more presence. */
     #siteContent .section-title,
     #siteContent .detail-card h3,
@@ -223,26 +223,23 @@
     #gallery .gallery-choice { width: 100%; }
 
   
-    /* Stronger, more prominent section headings */
-    #siteContent .section-title {
-      font-size: clamp(3.1rem, 6.5vw, 4.8rem);
-      font-weight: 700;
-      line-height: 1.02;
-    }
-    #siteContent .favorite-category-title {
-      font-size: clamp(2.25rem, 4.5vw, 3rem);
-      font-weight: 700;
-      line-height: 1.05;
-    }
+    /* Clear, larger bold serif headings throughout the wedding site. */
+    #siteContent .section-title,
+    #siteContent .favorite-category-title,
     #siteContent .detail-card h3,
     #siteContent .accommodation-card h3 {
-      font-size: clamp(1.75rem, 3vw, 2.15rem);
-      font-weight: 700;
-      line-height: 1.1;
+      font-family: var(--serif) !important;
+      font-weight: 700 !important;
+      font-style: normal;
+      line-height: 1.08;
     }
+    #siteContent .section-title { font-size: clamp(3.2rem, 6.8vw, 4.9rem) !important; }
+    #siteContent .favorite-category-title { font-size: clamp(2.35rem, 4.8vw, 3.1rem) !important; }
+    #siteContent .detail-card h3,
+    #siteContent .accommodation-card h3 { font-size: clamp(1.8rem, 3.2vw, 2.2rem) !important; }
     @media (max-width: 600px) {
-      #siteContent .section-title { font-size: clamp(2.7rem, 11vw, 3.5rem); }
-      #siteContent .favorite-category-title { font-size: clamp(2rem, 8vw, 2.5rem); }
+      #siteContent .section-title { font-size: clamp(2.8rem, 11vw, 3.6rem) !important; }
+      #siteContent .favorite-category-title { font-size: clamp(2.05rem, 8vw, 2.6rem) !important; }
     }
 
   </style>
