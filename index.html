@@ -222,6 +222,29 @@
     #gallery .gallery-choices { grid-template-columns: minmax(0, 520px); justify-content: center; }
     #gallery .gallery-choice { width: 100%; }
 
+  
+    /* Stronger, more prominent section headings */
+    #siteContent .section-title {
+      font-size: clamp(3.1rem, 6.5vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.02;
+    }
+    #siteContent .favorite-category-title {
+      font-size: clamp(2.25rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.05;
+    }
+    #siteContent .detail-card h3,
+    #siteContent .accommodation-card h3 {
+      font-size: clamp(1.75rem, 3vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    @media (max-width: 600px) {
+      #siteContent .section-title { font-size: clamp(2.7rem, 11vw, 3.5rem); }
+      #siteContent .favorite-category-title { font-size: clamp(2rem, 8vw, 2.5rem); }
+    }
+
   </style>
 </head>
 <body>
